@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -9,9 +10,8 @@ Route::get('/', function () {
 });
 
 
-Route::view('login', '/');
 
 
 // Authentication
-
-///////////////////
+Route::any('signIn', [UsersController::class , 'signin']);
+Route::any('login', [UsersController::class , 'login']);
