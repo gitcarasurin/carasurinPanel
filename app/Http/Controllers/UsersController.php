@@ -10,7 +10,7 @@ class UsersController extends Controller
     public function login(Request $request)
     {
         if ($request->isMethod('post')) {
-
+        /////////////////////////////////
         $user = User::
         where('username',$request->user)
         ->get();
@@ -25,18 +25,20 @@ class UsersController extends Controller
     public function signin(Request $request)
     {
         if ($request->isMethod('post')) {
-            dd("ok");
+
+            $validated = $request->validate([
+                'name' => 'bail|required|max:255',
+                'user' => 'bail|required|max:255',
+                'pass' => 'bail|required|max:255',
+            ]);
+            dd("o");
             $user = new User;
             $user->name = $request->name;
             $user->username = $request->user;
             $user->password = $request->pass;
             $user->save();
 
-            $user = new User;
-            $user->name = "ali";
-            $user->username = "user";
-            $user->password = "12345678";
-            $user->save();
+
 
         }else {
             return view('Authentication.signIn');

@@ -83,7 +83,7 @@
                   <!-- /.card-body -->
 
                   <div class="card-footer" style="text-align: center;">
-                    <button type="submit" class="btn  btn-lg" style="background: #84be38; color: #2c4012;width: 40%; ">ارسال</button>
+                    <button type="submit" class="btn  btn-lg" style="background: #84be38; color: #2c4012;width: 40%; ">ورود</button>
                   </div>
                 </form>
                 <a href="/signIn">حساب کاربری ندارید؟</a>

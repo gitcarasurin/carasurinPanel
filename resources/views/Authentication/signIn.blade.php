@@ -70,13 +70,27 @@
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
-                <form role="form">
+
+
+                {{--  errs  --}}
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
+
+                <form role="form" method="POST">
                     @csrf
                     <input class="tabclass" type="hidden" name="tab" value="real">
                     <div class="card-body">
                   <div class="form-group">
                     <label for="exampleInputEmail1" class="legallabel"> نام و نام خانوادگی</label>
-                    <input type="email" class="form-control legalname" id="exampleInputEmail1" name="name" placeholder="نام و نام خانوادگی ">
+                    <input type="text" class="form-control legalname" id="exampleInputEmail1" name="name" placeholder="نام و نام خانوادگی ">
                   </div>
                   <div class="form-group company-name">
                     <label for="exampleInputEmail1"> نام شرکت | نهاد | ارگان</label>
@@ -85,7 +99,7 @@
                   <div class="card-body">
                     <div class="form-group">
                       <label for="exampleInputEmail1">نام کاربری </label>
-                      <input type="email" class="form-control" id="exampleInputEmail1" name="user" placeholder="نام کاربری">
+                      <input type="text" class="form-control" id="exampleInputEmail1" name="user" placeholder="نام کاربری">
                     </div>
                     <div class="form-group">
                       <label for="exampleInputPassword1">کلمه عبور</label>
@@ -103,7 +117,7 @@
                   <!-- /.card-body -->
 
                   <div class="card-footer" style="text-align: center;">
-                    <button type="submit" class="btn  btn-lg" style="background: #84be38; color: #2c4012;width: 40%; ">ارسال</button>
+                    <button type="submit" class="btn  btn-lg" style="background: #84be38; color: #2c4012;width: 40%; ">ثبت نام</button>
                   </div>
                 </form>
                 <a href="/login">حساب کاربری دارید؟</a>
