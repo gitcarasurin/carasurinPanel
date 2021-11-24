@@ -60,33 +60,27 @@
         <div class="col-lg-6 col-md-8 col-md-10 box">
             <div class="card card-primary">
                     <div class="card-header" style="background:#ffb931;color:#6f4506 ; text-align: center;">
-                        <h3 class="card-title">ورود </h3>
+                        <h3 class="card-title">کد تایید </h3>
                     </div>
                 <!-- /.card-header -->
                 <!-- form start -->
+
+
                 <form role="form" method="POST">
                     @csrf
                   <div class="card-body">
                     <div class="form-group">
-                      <label for="exampleInputEmail1">نام کاربری</label>
-                      <input type="text" class="form-control" id="exampleInputEmail1" name="username" placeholder="نام کاربری">
-                    </div>
-                    <div class="form-group">
-                      <label for="exampleInputPassword1">Password</label>
-                      <input type="password" class="form-control" id="exampleInputPassword1" name="pass" placeholder="پسورد را وارد کنید">
-                    </div>
-                    <div class="form-check">
-                      <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                      <label class="form-check-label" for="exampleCheck1">مرا بخاطر بسپار</label>
+                      <label for="exampleInputEmail1">کد تایید را وارد کنید. </label>
+                      <input type="number" class="form-control" id="exampleInputEmail1" name="code" placeholder=" کد تایید را وارد کنید.">
                     </div>
                   </div>
                   <!-- /.card-body -->
 
                   <div class="card-footer" style="text-align: center;">
-                    <button type="submit" class="btn  btn-lg" style="background: #84be38; color: #2c4012;width: 40%; ">ورود</button>
+                    <button type="submit" class="btn  btn-lg" style="background: #84be38; color: #2c4012;width: 40%; ">برسی</button>
                   </div>
+                <a href="resendCode">ارسال مجدد</a>
                 </form>
-                <a href="/signIn">حساب کاربری ندارید؟</a>
 
               </div>
         </div>
@@ -96,18 +90,21 @@
     <!-- jQuery -->
     <script src="plugins/jquery/jquery.min.js"></script>
     <!-- ver = 1.0.0 -->
-    @isset($_GET['passno'])
-        <script>
-            alert("گذرواژه اشتباه است");
-            window.location.href="login";
-        </script>
-    @endisset
 
-    @isset($_GET['userno'])
+    @isset($_GET['codeerr'])
     <script>
-        alert("نام کاربری وجود ندارد");
-        window.location.href="login";
+        alert("کد اشتباه است.");
+        window.location.href="checkCode";
+
     </script>
 @endisset
+
+@isset($_GET['resend'])
+<script>
+    alert("کد مجدد ارسال شد");
+    window.location.href="checkCode";
+</script>
+@endisset
+
 </body>
 </html>

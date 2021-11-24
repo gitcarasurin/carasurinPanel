@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>ورود</title>
+    <title>ثبت نام</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Font Awesome -->
@@ -77,7 +77,12 @@
                     <div class="alert alert-danger">
                         <ul>
                             @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
+                            @if ($error == 'نام کاربری یک فرمت معتبر نیست')
+                            <b>در نام کاربری برای جدا سازی از ـ یا - استفاده کنید</b>
+                            @else
+                            <li>{{ $error }}</li>
+
+                            @endif
                             @endforeach
                         </ul>
                     </div>
@@ -94,21 +99,25 @@
                   </div>
                   <div class="form-group company-name">
                     <label for="exampleInputEmail1"> نام شرکت | نهاد | ارگان</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" name="user" placeholder="  نام سازمان">
+                    <input type="text" class="form-control" id="exampleInputEmail1" name="legalName" placeholder="  نام سازمان">
                   </div>
                   <div class="card-body">
                     <div class="form-group">
                       <label for="exampleInputEmail1">نام کاربری </label>
-                      <input type="text" class="form-control" id="exampleInputEmail1" name="user" placeholder="نام کاربری">
+                      <input type="text" class="form-control" id="exampleInputEmail1" name="username" placeholder="نام کاربری">
                     </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">ایمیل  </label>
+                        <input type="email" class="form-control" id="exampleInputEmail1" name="email" placeholder="ایمیل">
+                      </div>
                     <div class="form-group">
                       <label for="exampleInputPassword1">کلمه عبور</label>
                       <input type="password" class="form-control" id="exampleInputPassword1" name="pass" placeholder="پسورد را وارد کنید">
                     </div>
-                    <div class="form-group">
+                    {{-- <div class="form-group">
                         <label for="exampleInputPassword1"> تکرار کلمه عبور</label>
                         <input type="password" class="form-control" id="exampleInputPassword1" name="repass" placeholder="پسورد را وارد کنید">
-                      </div>
+                      </div> --}}
                     <div class="form-check">
                       <input type="checkbox" class="form-check-input" id="exampleCheck1">
                       <label class="form-check-label" for="exampleCheck1">مرا بخاطر بسپار</label>
