@@ -35,6 +35,7 @@ class UsersController extends Controller
         ->leftjoin('legals','user_id','users.id')
         ->select('users.id','email_status','password')
         ->get();
+        session()->put('email',$user[0]['email']);
         if(!isset($user[0])){
             return redirect('login?userno');
                 exit;
@@ -66,6 +67,7 @@ class UsersController extends Controller
                     $tokentb->destroy = now()->addDays(3);
                     $tokentb->save();
                 }
+
                 return redirect('/');
 
             }else{

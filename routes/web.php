@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\dashboardContriller;
 use App\Http\Controllers\UsersController;
 use App\Http\Middleware\Authenticate;
+use App\Http\Middleware\menuControlMidel;
 use App\Http\Middleware\UserAuth;
 use Illuminate\Contracts\Auth\UserProvider;
 use Illuminate\Support\Facades\Route;
@@ -22,10 +24,8 @@ Route::any('resendCode', [UsersController::class , 'resendCode']);
 Route::view('mail', 'mail.code');
 Route::any('logout',[UsersController::class,'logout']);
 
-Route::middleware([UserAuth::class])
+Route::middleware([UserAuth::class,menuControlMidel::class])
 ->group(function () {
-    Route::get('/', function () {
-        return view('dashboard.index');
-    });
-
+    Route::any('/', [dashboardContriller::class ,'dashboard']);
+    Route::any('profile',[dashboardContriller::class , 'profile']);
 });

@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use App\Models\Token;
+use App\Models\User;
 use Closure;
 use Illuminate\Http\Request;
 
@@ -26,7 +27,8 @@ class UserAuth
         }else {
             return redirect('status?denyAccess');
         }
-
+        $userInfo = Token::where('token',session('token'))->join('users','tokens.user_id','users.id')->get();
+        session()->put('userInfo',$userInfo);
         return $next($request);
     }
 }

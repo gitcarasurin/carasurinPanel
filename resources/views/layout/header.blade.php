@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>پنل مدیریت | داشبورد اول</title>
+  <title>پنل مدیریت | داشبورد </title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Font Awesome -->
@@ -38,7 +38,6 @@
       .logoutbtn{
         position: relative;
         color: #fff !important;
-        right: 30px;
         font-size: 20px;
       }
       .logoutbtn:hover{
@@ -47,6 +46,8 @@
           margin-top: -3px
       }
   </style>
+
+  @yield('head')
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -192,8 +193,14 @@
             <img src="dist/img/avatar.png" class="img-circle elevation-2" alt="User Image">
           </div>
           <div class="info">
-            <a href="#" class="d-block">مدیریت  </a>
-            <code style="background: #fff;border-radius:5px; ">&nbsp; حساب حقوقی &nbsp;</code>
+            <a href="/profile" style="color: #fff;" class="d-block">{{ session('userInfo')[0]['name'] }}<i class="fas fa-user-circle"></i>  </a>
+            <div style="width: 177px">
+                @if (session('userInfo')[0]['character_type'] == 'legal')
+                    <code style="background: #fff;border-radius:5px; ">&nbsp; حساب حقوقی &nbsp;</code>
+                @endif
+                
+
+            </div>
           </div>
           <a class="logoutbtn" href="/logout"><i class="fas fa-sign-out-alt"></i></a>
         </div>
@@ -221,16 +228,8 @@
                       </li>
               </ul> -->
               <!-- end examp -->
-              <li class="nav-item has-treeview menu-open">
-                <a href="#" class="nav-link active">
-                  <i class="nav-icon fas fa-tachometer-alt"></i>
-                  <p>
-                    داشبوردها
-                  </p>
-                </a>
-              </li>
-
-          </ul>
+              @include('layout.menu')
+              </ul>
         </nav>
         <!-- /.sidebar-menu -->
       </div>
@@ -248,10 +247,10 @@
             <h1 class="m-0 text-dark">داشبورد</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-left">
+            {{--  <ol class="breadcrumb float-sm-left">
               <li class="breadcrumb-item"><a href="/">داشبورد</a></li>
               <li class="breadcrumb-item active"> اصلی </li>
-            </ol>
+            </ol>  --}}
           </div><!-- /.col -->
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->

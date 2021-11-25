@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Nov 24, 2021 at 02:11 PM
+-- Generation Time: Nov 25, 2021 at 02:11 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.12
 
@@ -58,53 +58,48 @@ CREATE TABLE `legals` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `migrations`
+-- Table structure for table `menus`
 --
 
-CREATE TABLE `migrations` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `batch` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+CREATE TABLE `menus` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) COLLATE utf8_persian_ci NOT NULL,
+  `title` varchar(200) COLLATE utf8_persian_ci NOT NULL,
+  `icon` varchar(50) COLLATE utf8_persian_ci NOT NULL,
+  `link` varchar(250) COLLATE utf8_persian_ci NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
 
 --
--- Dumping data for table `migrations`
+-- Dumping data for table `menus`
 --
 
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
-(1, '2014_10_12_100000_create_password_resets_table', 1),
-(2, '2019_08_19_000000_create_failed_jobs_table', 1),
-(3, '2019_12_14_000001_create_personal_access_tokens_table', 1);
+INSERT INTO `menus` (`id`, `name`, `title`, `icon`, `link`, `created_at`, `updated_at`) VALUES
+(1, 'dashboard', 'داشبورد', 'fas fa-tachometer-alt', '/', '2021-11-25 12:30:46', '0000-00-00 00:00:00'),
+(3, 'profile', 'پروفایل', 'fas fa-user-circle', '/profile', '2021-11-25 13:09:40', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `password_resets`
+-- Table structure for table `tokens`
 --
 
-CREATE TABLE `password_resets` (
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `personal_access_tokens`
---
-
-CREATE TABLE `personal_access_tokens` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `tokenable_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `tokenable_id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `abilities` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `last_used_at` timestamp NULL DEFAULT NULL,
+CREATE TABLE `tokens` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `token` varchar(500) COLLATE utf8_persian_ci NOT NULL,
+  `destroy` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
+
+--
+-- Dumping data for table `tokens`
+--
+
+INSERT INTO `tokens` (`id`, `user_id`, `token`, `destroy`, `created_at`, `updated_at`) VALUES
+(5, 37, '-$v#QC9GI&H%/4xorjqhz0F*i=3kp7R!udmlcSLJ^fBY*A6twOeN85-E21bTyDsgn+PaVMUKWZ@', '2021-11-28 06:42:07', '2021-11-25 06:42:07', '2021-11-25 09:34:26');
 
 -- --------------------------------------------------------
 
@@ -140,7 +135,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `character_type`, `username`, `password`, `name`, `email`, `email_status`, `phone`, `phone_status`, `document_authentication`, `national_number`, `national_id`, `birthday`, `place_birth`, `addres`, `postal_code`, `job`, `education`, `created_at`, `updated_at`) VALUES
-(36, 'real', 'azimi', '$2y$10$L0bk9unXkMcV5AQ.CPtwB.Qj4r0VCbuKx9DN/TaPCvz7sd8.b1GXy', 'تست تست آبادی', 'joorjin2@gmail.com', '4891', NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-11-24 09:04:53', '2021-11-24 09:25:33');
+(37, 'real', 'azimi', '$2y$10$ggXLX2mUpr9rmPSWP4vhIeDbA07W.uyjdy7jJtbkOUxrm0cI.p7R2', 'محمد جواد عظیمی', 'joorjin2@gmail.com', 'confirmed', NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-11-25 04:43:46', '2021-11-25 04:49:47'),
+(38, 'real', 'khorramdel', '$2y$10$KNpM27brRiG7/rQqZUO.Quyx7HMrt43njXQMXFzMGms109aaiYacC', 'مهلا خرم دل', 'm.khorramdel90@gmail.com', 'confirmed', NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-11-25 05:50:54', '2021-11-25 05:53:17'),
+(39, 'real', 'user', '$2y$10$A0buCXncQxeJc6rlLcUET.KwdnpI/CS7oR/N86ENL1I9ROP07kSee', 'تست تست آبادی', 'mohammadjavjad2903@gmail.com', '4253', NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-11-25 05:52:22', '2021-11-25 05:52:22');
 
 --
 -- Indexes for dumped tables
@@ -160,24 +157,16 @@ ALTER TABLE `legals`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `migrations`
+-- Indexes for table `menus`
 --
-ALTER TABLE `migrations`
+ALTER TABLE `menus`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `password_resets`
+-- Indexes for table `tokens`
 --
-ALTER TABLE `password_resets`
-  ADD KEY `password_resets_email_index` (`email`);
-
---
--- Indexes for table `personal_access_tokens`
---
-ALTER TABLE `personal_access_tokens`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `personal_access_tokens_token_unique` (`token`),
-  ADD KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`);
+ALTER TABLE `tokens`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `users`
@@ -202,22 +191,22 @@ ALTER TABLE `legals`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT for table `migrations`
+-- AUTO_INCREMENT for table `menus`
 --
-ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+ALTER TABLE `menus`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `personal_access_tokens`
+-- AUTO_INCREMENT for table `tokens`
 --
-ALTER TABLE `personal_access_tokens`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE `tokens`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
