@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ValidationMail;
+use App\Models\Token;
 use Illuminate\Support\Facades\Redirect;
 
 class UsersController extends Controller
@@ -23,7 +24,7 @@ class UsersController extends Controller
 
         if ($request->isMethod('post')) {
             $validated = $request->validate([
-                'username' => 'bail|max:255',
+                'username' => 'bail|required|max:255',
                 'pass' => 'bail|required|max:255',
             ]);
             // $validator->errors()->add('field', 'Something is wrong with this field!');
@@ -32,21 +33,46 @@ class UsersController extends Controller
         $user = User::
         where('username',$request->username)
         ->leftjoin('legals','user_id','users.id')
+        ->select('users.id','email_status','password')
         ->get();
         if(!isset($user[0])){
             return redirect('login?userno');
                 exit;
         }
-        // if () {
-        //     # code...
-        // }
+
         if ($user[0]['email_status'] == 'confirmed') {
-            if (Hash::check($request->pass, $user[0]['password'])) {
-                dd("ok");
+            if (Hash::check($request->pass, $user[0]['password'])){
+                // rand
+                $seed = str_split('ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+                .'abcdefghijklmnopqrstuvwxyz'
+                .'*/-!@#$%^&*+=-'
+                .'0123456789');
+                shuffle($seed);
+                $token ='';
+                foreach (array_rand($seed, 75) as $k) $token .= $seed[$k];
+                session()->put('token',$token);
+
+
+                $tokentb=Token::where('user_id',$user[0]['id'])->get();
+                if (isset($tokentb[0])) {
+                    $tokentb=Token::where('user_id',$user[0]['id'])
+                    ->update([
+                        'token'=>$token,
+                    ]);
+                }else {
+                    $tokentb = new Token;
+                    $tokentb->user_id=$user[0]['id'];
+                    $tokentb->token =$token;
+                    $tokentb->destroy = now()->addDays(3);
+                    $tokentb->save();
+                }
+                return redirect('/');
+
             }else{
                 return redirect('login?passno');
             }
         }else{
+            session()->put('email',$user[0]['email']);
             return redirect('status?emailcodeno');
         }
 
@@ -117,7 +143,33 @@ class UsersController extends Controller
                 $user = User::where('email',session('email'))->get();
                 if($user[0]['email_status'] == $request->code){
                     User::where('email',session('email'))->update(['email_status' => "confirmed"]);
-                    dd("ok");
+
+
+                    $seed = str_split('ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+                    .'abcdefghijklmnopqrstuvwxyz'
+                    .'*/-!@#$%^&*+=-'
+                    .'0123456789');
+                    shuffle($seed);
+                    $token ='';
+                    foreach (array_rand($seed, 75) as $k) $token .= $seed[$k];
+                    session()->put('token',$token);
+
+
+                    $tokentb=Token::where('user_id',$user[0]['id'])->get();
+                    if (isset($tokentb[0])) {
+                        $tokentb=Token::where('user_id',$user[0]['id'])
+                        ->update([
+                            'token'=>$token,
+                        ]);
+                    }else {
+                        $tokentb = new Token;
+                        $tokentb->user_id=$user[0]['id'];
+                        $tokentb->token =$token;
+                        $tokentb->destroy = now()->addDays(3);
+                        $tokentb->save();
+                    }
+                    return redirect('/');
+
                 }
                 else{
                     return Redirect('checkCode?codeerr');
@@ -139,6 +191,13 @@ class UsersController extends Controller
         Mail::send(new ValidationMail($rand_code));
         return Redirect('checkCode?resend');
 
+
+    }
+
+    public function logout(Request $request){
+        Token::where('token',session('token'))->delete();
+        $request->session()->flush();
+        return redirect('login?out');
 
     }
 }

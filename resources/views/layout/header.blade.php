@@ -32,7 +32,21 @@
   <link rel="stylesheet" href="dist/css/custom-style.css">
 
   <link rel="icon" href="dist/img/logo.png" type="image/jpg">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 
+  <style>
+      .logoutbtn{
+        position: relative;
+        color: #fff !important;
+        right: 30px;
+        font-size: 20px;
+      }
+      .logoutbtn:hover{
+          color: #f34e4e !important;
+          font-size: 23px;
+          margin-top: -3px
+      }
+  </style>
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -52,8 +66,9 @@
       </li> -->
     </ul>
 
+
     <!-- SEARCH FORM -->
-    <form class="form-inline ml-3">
+    {{--  <form class="form-inline ml-3">
       <div class="input-group input-group-sm">
         <input class="form-control form-control-navbar" type="search" placeholder="جستجو" aria-label="Search">
         <div class="input-group-append">
@@ -62,14 +77,14 @@
           </button>
         </div>
       </div>
-    </form>
+    </form>  --}}
 
     <!-- Right navbar links -->
     <ul class="navbar-nav mr-auto">
       <!-- Messages Dropdown Menu -->
       <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
-          <i class="fa fa-comments-o"></i>
+          <i class="far fa-comment"></i>
           <span class="badge badge-danger navbar-badge">3</span>
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-left">
@@ -177,8 +192,10 @@
             <img src="dist/img/avatar.png" class="img-circle elevation-2" alt="User Image">
           </div>
           <div class="info">
-            <a href="#" class="d-block">مدیریت </a>
+            <a href="#" class="d-block">مدیریت  </a>
+            <code style="background: #fff;border-radius:5px; ">&nbsp; حساب حقوقی &nbsp;</code>
           </div>
+          <a class="logoutbtn" href="/logout"><i class="fas fa-sign-out-alt"></i></a>
         </div>
 
         <!-- Sidebar Menu -->
@@ -191,8 +208,8 @@
                     <a href="#" class="nav-link active">
                       <i class="nav-icon fa fa-dashboard"></i>
                       <p>
-                        داشبوردها
-                        <i class="right fa fa-angle-left"></i>
+                        داشبورد
+                        <i class="right fas fa-angle-left"></i>
                       </p>
                     </a>
                     <ul class="nav nav-treeview">
@@ -206,7 +223,7 @@
               <!-- end examp -->
               <li class="nav-item has-treeview menu-open">
                 <a href="#" class="nav-link active">
-                  <i class="nav-icon fa fa-dashboard"></i>
+                  <i class="nav-icon fas fa-tachometer-alt"></i>
                   <p>
                     داشبوردها
                   </p>

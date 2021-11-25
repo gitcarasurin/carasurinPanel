@@ -103,11 +103,21 @@
         </script>
     @endisset
 
-    @isset($_GET['userno'])
+@isset($_GET['userno'])
     <script>
         alert("نام کاربری وجود ندارد");
         window.location.href="login";
     </script>
 @endisset
+
+
+
+@isset($_GET['out'])
+<script>
+    alert("با موفقیت از حساب کاریری خود خارج شدید.");
+    window.location.href="login";
+</script>
+@endisset
+
 </body>
 </html>

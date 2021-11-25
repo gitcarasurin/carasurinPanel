@@ -26,6 +26,9 @@
 
 
     <style>
+        body{
+            font-family: 'Vazir', sans-serif !important;
+        }
         @font-face {
             font-family: irsens;
             src: url(font/IRANSansWeb.woff);
@@ -48,11 +51,15 @@
         @media(max-width:600px){
             body{
                 background: #fff;
+
             }
             .all .boxx{
                 width: 100%;
                 right:0;
             }
+        }
+        .small-box{
+            border-radius:20px;
         }
     </style>
 </head>
@@ -75,11 +82,57 @@
                   <div class="icon">
                     <i class="fa fa-ban"></i>
                   </div>
-                  {{-- <a href="tel:09150567825" class="small-box-footer">
-                    برای رفع مسدودیت کلیک کنید <i class="fa fa-arrow-circle-right"></i>
-                  </a> --}}
+                  <a href="/resendCode" class="small-box-footer">
+                    برای تایید  ایمیل کلیک کنید. <i class="fa fa-arrow-circle-right"></i>
+                  </a>
                 </div>
             @endisset
+
+            @isset ($_GET['emailcodeno'])
+            <!-- small box -->
+                <div class="small-box bg-red">
+                  <div class="inner">
+                    <h3> دسترسی ندارید</h3>
+
+                    <p>لطفا ابتدا ایمیل خود را تایید کنید.</p>
+                  </div>
+                  <div class="icon">
+                    <i class="fa fa-ban"></i>
+                  </div>
+                  <a href="/resendCode" class="small-box-footer">
+                    برای تایید  ایمیل کلیک کنید. <i class="fa fa-arrow-circle-right"></i>
+                  </a>
+                </div>
+            @endisset
+
+
+
+
+
+
+            @isset ($_GET['denyAccess'])
+            <!-- small box -->
+                <div class="small-box bg-red">
+                  <div class="inner">
+                    <h3> دسترسی ندارید</h3>
+
+                    <p>شما به این بخش دسترسی ندارید</p>
+                    <p>ابتدا به حساب کاربری خود <b><a href="/login"><button>وارد</button></a></b> شوید</p>
+                    <p>یا در صورت اطمینان نسبت به دسترسی خود با واحد پشتیبانی تماس بگیرید</p>
+                  </div>
+                  <div class="icon">
+                    <i class="fa fa-ban"></i>
+                  </div>
+                  {{--  <a href="/resendCode" class="small-box-footer">
+                    برای تایید  ایمیل کلیک کنید. <i class="fa fa-arrow-circle-right"></i>
+                  </a>  --}}
+                </div>
+            @endisset
+
+
+
+
+
 
         </div>
     </div>

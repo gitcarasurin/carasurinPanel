@@ -101,7 +101,7 @@
 
 @isset($_GET['resend'])
 <script>
-    alert("کد مجدد ارسال شد");
+    alert("(پوشه اسپم ها هم چک کنید.))کد ارسال شد");
     window.location.href="checkCode";
 </script>
 @endisset
