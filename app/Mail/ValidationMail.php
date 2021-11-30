@@ -21,11 +21,7 @@ class ValidationMail extends Mailable
         $this->code = $rand_code;
     }
 
-    /**
-     * Build the message.
-     *
-     * @return $this
-     */
+
     public function build()
     {
 

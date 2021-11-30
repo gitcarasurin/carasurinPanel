@@ -16,9 +16,10 @@ class Sms extends Notification
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($rand_code,$phone)
     {
-        //
+        $this->code = $rand_code;
+        $this->phone = $phone;
     }
 
     /**
@@ -27,9 +28,10 @@ class Sms extends Notification
      * @param  mixed  $notifiable
      * @return array
      */
-    public function via($notifiable)
-    {
-        return ['mail'];
+    public function via($notifiable){
+
+        file_get_contents("http://87.107.121.52/post/sendsms.ashx?from=20009012701400&to=$this->phone&text=$this->code&password=carasurin31505&username=9014202955");
+        return 0;
     }
 
     /**
@@ -59,3 +61,5 @@ class Sms extends Notification
         ];
     }
 }
+
+

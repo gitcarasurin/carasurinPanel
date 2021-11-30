@@ -9,7 +9,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ValidationMail;
+use App\Models\Gov;
+use App\Models\LegalsCommercial;
+use App\Models\LegalsNonCom;
+use App\Models\RealForeign;
+use App\Models\RealIr;
 use App\Models\Token;
+use App\Notifications\Sms;
 use Facade\FlareClient\Api;
 use GuzzleHttp\Client as GuzzleHttpClient;
 use Illuminate\Support\Facades\Log;
@@ -38,14 +44,14 @@ class UsersController extends Controller
         $user = User::
         where('username',$request->username)
         ->leftjoin('legals','user_id','users.id')
-        ->select('users.id','email_status','password')
+        ->select('users.id','phone_status ','password')
         ->get();
         if(!isset($user[0])){
             return redirect('login?userno');
                 exit;
         }
 
-        if ($user[0]['email_status'] == 'confirmed') {
+        if ($user[0]['phone_status '] == 'confirmed') {
             if (Hash::check($request->pass, $user[0]['password'])){
                 // rand
                 $seed = str_split('ABCDEFGHIJKLMNOPQRSTUVWXYZ'
@@ -105,45 +111,90 @@ class UsersController extends Controller
                 'tab'=> 'required'
             ]);
             $tab = $request->tab;
-            $rand_code = rand(1000,9999);
+            // dd($tab);
+            $rand_code = rand(10000,99999);
 
-            if ($tab=='real') {
+            if ($tab =='real_ir') {
                 $user = new User;
+                $user->character_type = $tab;
                 $user->phone = $request->phone;
                 $user->username = $request->username;
                 $user->email = $request->email;
-                $user->email_status = $rand_code;
+                $user->phone_status  = $rand_code;
                 $user->pass = bcrypt($request->pass);
                 $user->save();
+
+                $realIr = new RealIr;
+                $realIr->user_id = $user->id;
+                $realIr->name = $request->name;
+                $realIr->save();
             }
-            elseif ($tab = 'legal') {
+            elseif ($tab == 'real_foreign') {
+
                 $user = new User;
-                $user->name = $request->name;
-                $user->character_type='legal';
+                $user->character_type = $tab;
+                $user->phone = $request->phone;
                 $user->username = $request->username;
                 $user->email = $request->email;
-                $user->phone_status = $rand_code;
-                $user->password = bcrypt($request->pass);
+                $user->phone_status  = $rand_code;
+                $user->pass = bcrypt($request->pass);
                 $user->save();
 
 
-                $legal = new Legals;
-                $legal->user_id = $user->id;
-                $legal->name=$request->legalName;
-                $legal->save();
+                $realIr = new RealForeign();
+                $realIr->user_id = $user->id;
+                $realIr->name = $request->name;
+                $realIr->save();
             }
-            else{
+            elseif ($tab == 'commercial_law' || $tab =='legals_non_com' || $tab == 'governmental'){
+                $user = new User;
+                $user->character_type = $tab;
+                $user->phone = $request->phone;
+                $user->username = $request->username;
+                $user->email = $request->email;
+                $user->phone_status  = $rand_code;
+                $user->pass = bcrypt($request->pass);
+                $user->save();
+
+                if ($tab == 'commercial_law') {
+                    $organization = new LegalsCommercial;
+                }
+                if ($tab == 'legals_non_com') {
+                    $organization = new LegalsNonCom;
+                }
+                if ($tab == 'governmental') {
+                    $organization = new Gov;
+                }
+                $organization->user_id = $user->id;
+                $organization->name = $request->name_legal;
+                $organization->nationality = $request->representative_nationality;
+                $organization->save();
+
+                if ($request->representative_nationality == "real_ir") {
+                    $realIr = new RealIr;
+                    $realIr->user_id = $user->id;
+                    $realIr->name = $request->name;
+                    $realIr->save();
+
+                }elseif ($request->representative_nationality ==  'real_foreign') {
+                    $realIr = new RealForeign();
+                    $realIr->user_id = $user->id;
+                    $realIr->name = $request->name;
+                    $realIr->save();
+                }
+
+                dd("stop");
+            }else{
                 redirect('signIn');
             }
 
 
             session()->put('email',$request->email);
 
-
-
-
             // Mail::send(new ValidationMail($rand_code));
-            $homepage = file_get_contents("http://87.107.121.52/post/sendsms.ashx?from=20009012701400&to=$request->phone&text=$rand_code&password=carasurin31505&username=9014202955");
+
+            // send sms
+            $user->notify(new Sms($rand_code,$request->phone));
 
             return Redirect('checkCode');
 
@@ -159,8 +210,8 @@ class UsersController extends Controller
 
             if ($request->isMethod("post")) {
                 $user = User::where('email',session('email'))->get();
-                if($user[0]['email_status'] == $request->code){
-                    User::where('email',session('email'))->update(['email_status' => "confirmed"]);
+                if($user[0]['phone_status'] == $request->code){
+                    User::where('email',session('email'))->update(['phone_status' => "confirmed"]);
 
 
                     $seed = str_split('ABCDEFGHIJKLMNOPQRSTUVWXYZ'
@@ -205,7 +256,7 @@ class UsersController extends Controller
     {
         $rand_code = rand(1000,9999);
 
-        User::where('email',session('email'))->update(['email_status' => $rand_code]);
+        User::where('email',session('email'))->update(['phone_status ' => $rand_code]);
         Mail::send(new ValidationMail($rand_code));
         return Redirect('checkCode?resend');
 

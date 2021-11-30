@@ -43,9 +43,6 @@
             width: 100%;
             text-align: center;
         }
-        .company-name{
-            display: none;
-        }
     </style>
 </head>
 <body>
@@ -60,14 +57,15 @@
     <div class="row">
         <div class="col-lg-6 col-md-8 col-md-10 box">
             <div class="card card-primary">
-                <div class="row headbox" style="text-align: center; border-bottom: 1px solid #ffb931;">
-                    <div class="card-header col-6" type="real" style="background:#ffb931;color:#6f4506 ; border-right: 1px solid #ffb931; ">
-                        <h3 class="card-title">حقیقی </h3>
-                    </div>
-                    <div class="card-header col-6" type="legal" style="background:#ffffff;color:#6f4506 ; border: 2px solid #ffb931;border-left: 0px;">
-                        <h3 class="card-title" >حقوقی</h3>
-                    </div>
-                </div>
+
+                <select class="form-select" aria-label="Default select example">
+                    <option selected value="-">نوع شخصیت را انتخاب کنید</option>
+                    <option value="real_ir">حقیقی ایرانی</option>
+                    <option value="real_foreign">حقیقی تبعه</option>
+                    <option value="commercial_law">حقوقی تجاری</option>
+                    <option value="legals_non_com">حقوقی غیر تجاری</option>
+                    <option value="governmental">سازمان دولتی </option>
+                </select>
                 <!-- /.card-header -->
                 <!-- form start -->
 
@@ -89,46 +87,108 @@
                 @endif
 
 
-                <form role="form" method="POST">
-                    @csrf
-                    <input class="tabclass" type="hidden" name="tab" value="real">
-                    <div class="card-body">
-                  <div class="form-group company-name">
-                    <label for="exampleInputEmail1"> نام شرکت | نهاد | ارگان</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" name="legalName" placeholder="  نام سازمان">
-                  </div>
-                  <div class="card-body">
-                    <div class="form-group">
-                      <label for="exampleInputEmail1">نام کاربری </label>
-                      <input type="text" class="form-control" id="exampleInputEmail1" name="username" placeholder="نام کاربری">
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">ایمیل  </label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" name="email" placeholder="ایمیل">
-                      </div>
-                      <div class="form-group">
-                        <label for="exampleInputEmail1" class="legallabel"> شماره تلفن</label>
-                        <input type="tel" class="form-control legalname" id="exampleInputphone" name="phone" placeholder="09123456789 ">
-                      </div>
-                    <div class="form-group">
-                      <label for="exampleInputPassword1">کلمه عبور</label>
-                      <input type="password" class="form-control" id="exampleInputPassword1" name="pass" placeholder="پسورد را وارد کنید">
-                    </div>
-                    {{-- <div class="form-group">
-                        <label for="exampleInputPassword1"> تکرار کلمه عبور</label>
-                        <input type="password" class="form-control" id="exampleInputPassword1" name="repass" placeholder="پسورد را وارد کنید">
-                      </div> --}}
-                    <div class="form-check">
-                      <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                      <label class="form-check-label" for="exampleCheck1">مرا بخاطر بسپار</label>
-                    </div>
-                  </div>
-                  <!-- /.card-body -->
 
-                  <div class="card-footer" style="text-align: center;">
-                    <button type="submit" class="btn  btn-lg" style="background: #84be38; color: #2c4012;width: 40%; ">ثبت نام</button>
-                  </div>
-                </form>
+                <div class="all-legal">
+                    <form role="form" method="POST">
+                        @csrf
+                        <input class="tabclass" type="hidden" name="tab" value="">
+                        <div class="card-body">
+                            <div class="form-group company-name">
+                                <label for="exampleInputEmail1"> نام سازمان  </label>
+                                <input type="text" class="form-control" id="exampleInputEmail1" name="name_legal" placeholder="  نام سازمان">
+                            </div>
+
+                    <b>مشخصات نماینده سازمان</b>
+                            <br>
+                        <select name="representative_nationality" class="form-select2" aria-label="Default select example">
+                            <option selected value="-">ملیت را انتخاب کنید</option>
+                            <option value="real_ir"> ایرانی</option>
+                            <option value="real_foreign">تبعه</option>
+                        </select>
+                    <div class="form-group company-name">
+                        <label for="exampleInputEmail1">  نام و نام خانوادگی</label>
+                        <input type="text" class="form-control" id="exampleInputEmail1" name="name" placeholder="  نام و نام خانوادگی">
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                        <label for="exampleInputEmail1">نام کاربری </label>
+                        <input type="text" class="form-control" id="exampleInputEmail1" name="username" placeholder="نام کاربری">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">ایمیل  </label>
+                            <input type="email" class="form-control" id="exampleInputEmail1" name="email" placeholder="ایمیل">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1" class="legallabel"> شماره تلفن</label>
+                            <input type="tel" class="form-control legalname" id="exampleInputphone" name="phone" placeholder="09123456789 ">
+                        </div>
+                        <div class="form-group">
+                        <label for="exampleInputPassword1">کلمه عبور</label>
+                        <input type="password" class="form-control" id="exampleInputPassword1" name="pass" placeholder="پسورد را وارد کنید">
+                        </div>
+                        {{-- <div class="form-group">
+                            <label for="exampleInputPassword1"> تکرار کلمه عبور</label>
+                            <input type="password" class="form-control" id="exampleInputPassword1" name="repass" placeholder="پسورد را وارد کنید">
+                        </div> --}}
+                        <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                        <label class="form-check-label" for="exampleCheck1">مرا بخاطر بسپار</label>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+                        </div>
+                    <div class="card-footer" style="text-align: center;">
+                        <button type="submit" class="btn  btn-lg" style="background: #84be38; color: #2c4012;width: 40%; ">ثبت نام</button>
+                    </div>
+                    </form>
+                </div>
+
+                <div class="all-real">
+                    <form role="form" method="POST">
+                        @csrf
+                        <input class="tabclass" type="hidden" name="tab" value="">
+                        <div class="card-body">
+                    <div class="form-group company-name">
+                        <label for="exampleInputEmail1">  نام و نام خانوادگی</label>
+                        <input type="text" class="form-control" id="exampleInputEmail1" name="name" placeholder="  نام و نام خانوادگی">
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                        <label for="exampleInputEmail1">نام کاربری </label>
+                        <input type="text" class="form-control" id="exampleInputEmail1" name="username" placeholder="نام کاربری">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">ایمیل  </label>
+                            <input type="email" class="form-control" id="exampleInputEmail1" name="email" placeholder="ایمیل">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1" class="legallabel"> شماره تلفن</label>
+                            <input type="tel" class="form-control legalname" id="exampleInputphone" name="phone" placeholder="09123456789 ">
+                        </div>
+                        <div class="form-group">
+                        <label for="exampleInputPassword1">کلمه عبور</label>
+                        <input type="password" class="form-control" id="exampleInputPassword1" name="pass" placeholder="پسورد را وارد کنید">
+                        </div>
+                        {{-- <div class="form-group">
+                            <label for="exampleInputPassword1"> تکرار کلمه عبور</label>
+                            <input type="password" class="form-control" id="exampleInputPassword1" name="repass" placeholder="پسورد را وارد کنید">
+                        </div> --}}
+                        <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                        <label class="form-check-label" for="exampleCheck1">مرا بخاطر بسپار</label>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+
+                    <div class="card-footer" style="text-align: center;">
+                        <button type="submit" class="btn  btn-lg" style="background: #84be38; color: #2c4012;width: 40%; ">ثبت نام</button>
+                    </div>
+                    </form>
+                </div>
+
+
+
+
                 <a href="/login">حساب کاربری دارید؟</a>
               </div>
         </div>
@@ -139,19 +199,42 @@
     <script src="plugins/jquery/jquery.min.js"></script>
     <script>
         $(document).ready(function () {
-            $('.card-header').click(function (e) {
-                $(".company-name").css("display", "none");
-                $(".legallabel").html("نام و نام خانوادگی ");
-                    $(".legalname").attr("placeholder", "نام و نام خانوادگی");
-                $(".card-header").css("background","#fff");
-                $(this).css("background", "#ffb931");
-                var type = $(this).attr("type");
-                $(".tabclass").attr("value", type);
-                if (type == "legal") {
-                    $(".company-name").css("display", "inline");
-                    $(".legallabel").html("نام و نام خانوادگی نماینده سازمان");
-                    $(".legalname").attr("placeholder", "نام و نام خانوادگی نماینده سازمان");
+
+            $(".all-real").hide();
+            $(".all-legal").hide();
+            $(".form-select").change(function () {
+                let type = $(this).val();
+                $(".tabclass").val(type);
+                if ($(".form-select").val() == '-') {
+                    $(".all-real").hide();
+                    $(".all-legal").hide();
                 }
+
+                if ($(".form-select").val() == 'real_ir') {
+                    $(".all-real").show();
+                    $(".all-legal").hide();
+                }
+                if ($(".form-select").val() == 'real_foreign') {
+                    $(".all-real").show();
+                    $(".all-legal").hide();
+                }
+
+                if ($(".form-select").val() == 'commercial_law') {
+                    $(".all-legal").show();
+                    $(".all-real").hide();
+                }
+                if ($(".form-select").val() == 'legals_non_com') {
+                    $(".all-legal").show();
+                    $(".all-real").hide();
+                }
+                if ($(".form-select").val() == 'governmental') {
+                    $(".all-legal").show();
+                    $(".all-real").hide();
+                }
+
+
+
+
             });
         });
     </script>

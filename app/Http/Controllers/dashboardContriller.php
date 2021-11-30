@@ -22,10 +22,9 @@ class dashboardContriller extends Controller
 
                 // upload image
                 $imageName = time().'.'.$request->imageUser->extension();
-
                 $request->imageUser->move(public_path('dist/img/user_image'), $imageName);
                 User::
-                where('id',session('userInfo')[0]['id'])
+                where('id',session('userInfo')[0]['user_id'])
                 ->update(['img'=>$imageName]);
                 return redirect('profile');
             }elseif (isset($request->phone)) {

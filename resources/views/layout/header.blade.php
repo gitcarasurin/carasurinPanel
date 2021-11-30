@@ -158,7 +158,7 @@
             <i class="fa fa-users ml-2"></i> به مونوتل خوش آمدید.
             <span class="float-left text-muted text-sm">مدیریت سایت</span>
           </a>
-          @if(!isset(session('userInfo')[0]['phone']))
+          @if(!isset(session('userInfo')[0]['email_status']))
           <a href="profile" class="dropdown-item text-danger">
             <i class="fa fa-file ml-2"></i> اطلاعاتتان را تکمیل کنید
             <span class="float-left text-muted text-sm">مدیریت سایت</span>
@@ -199,7 +199,7 @@
           <div class="info">
             <a href="/profile" style="color: #fff;" class="d-block">{{ session('userInfo')[0]['name'] }}<i class="fas fa-user-circle"></i>  </a>
             <div style="width: 177px">
-                @if (session('userInfo')[0]['character_type'] == 'legal')
+                @if (session('userInfo')[0]['character_type'] != 'real_ir' && session('userInfo')[0]['character_type'] != 'real_foreign')
                     <code style="background: #fff;border-radius:5px; ">&nbsp; حساب حقوقی &nbsp;</code>
                 @endif
 

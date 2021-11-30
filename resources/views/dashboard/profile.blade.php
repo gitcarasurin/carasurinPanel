@@ -16,7 +16,7 @@
                 <!-- Add the bg color to the header using any of the bg-* classes -->
                 <div class="widget-user-header bg-info-active">
                   <h3 class="widget-user-username">{{ session('userInfo')[0]['name'] }}</h3>
-                  <h5 class="widget-user-desc" style="text-decoration: underline;"><?php echo (session('userInfo')[0]['character_type'] == 'real') ? '' : '<a href="a" >تکمیل اطلاعات حساب حقوقی.</a>'; ?></h5>
+                  <h5 class="widget-user-desc" style="text-decoration: underline;"><?php echo (session('userInfo')[0]['character_type'] != 'real_ir' && session('userInfo')[0]['character_type'] != 'real_foreign') ? '<a href="a" >تکمیل اطلاعات حساب حقوقی.</a>' : ''; ?></h5>
                 </div>
                 <div class="widget-user-image">
                     <img class="img-circle elevation-2" src={{"../dist/img/user_image/".session('userInfo')[0]['img'] }} alt="User Avatar">
@@ -59,10 +59,11 @@
                     <!-- /.col -->
                     <div class="col-sm-4">
                       <div class="description-block">
-                        @if (session('userInfo')[0]['document_authentication'])
-                                <h5 class="description-header text-success">حساب کاربری تایید شده <i class="fas fa-check-circle"></i></h5>
-                            @else
-                                <h5 class="description-header text-danger">هنوز تایید نشده <i class="fas fa-times-circle"></i></h5>
+                        @if (session('userInfo')[0]['status'] == "waiting")
+                                <h5 class="description-header text-warning"> در انتظار تایید <i class="fas fa-exclamation-triangle"></i></h5>
+                        @endif
+                        @if (session('userInfo')[0]['status'] == "active")
+                            <h5 class="description-header text-success">  تایید شده(فعال) <i class="fas fa-check-circle"></i></h5>
                         @endif
                         <span class="description-text">وضعیت حساب کاربری</span>
                       </div>
