@@ -93,10 +93,6 @@
                     @csrf
                     <input class="tabclass" type="hidden" name="tab" value="real">
                     <div class="card-body">
-                  <div class="form-group">
-                    <label for="exampleInputEmail1" class="legallabel"> نام و نام خانوادگی</label>
-                    <input type="text" class="form-control legalname" id="exampleInputEmail1" name="name" placeholder="نام و نام خانوادگی ">
-                  </div>
                   <div class="form-group company-name">
                     <label for="exampleInputEmail1"> نام شرکت | نهاد | ارگان</label>
                     <input type="text" class="form-control" id="exampleInputEmail1" name="legalName" placeholder="  نام سازمان">
@@ -109,6 +105,10 @@
                     <div class="form-group">
                         <label for="exampleInputEmail1">ایمیل  </label>
                         <input type="email" class="form-control" id="exampleInputEmail1" name="email" placeholder="ایمیل">
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputEmail1" class="legallabel"> شماره تلفن</label>
+                        <input type="tel" class="form-control legalname" id="exampleInputphone" name="phone" placeholder="09123456789 ">
                       </div>
                     <div class="form-group">
                       <label for="exampleInputPassword1">کلمه عبور</label>

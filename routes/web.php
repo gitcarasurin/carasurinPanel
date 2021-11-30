@@ -23,9 +23,11 @@ Route::any('checkCode', [UsersController::class ,'checkCode']);
 Route::any('resendCode', [UsersController::class , 'resendCode']);
 Route::view('mail', 'mail.code');
 Route::any('logout',[UsersController::class,'logout']);
-
+Route::view('authentication', 'viewName');
 Route::middleware([UserAuth::class,menuControlMidel::class])
 ->group(function () {
     Route::any('/', [dashboardContriller::class ,'dashboard']);
     Route::any('profile',[dashboardContriller::class , 'profile']);
+
+
 });

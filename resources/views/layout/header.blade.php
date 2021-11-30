@@ -141,32 +141,36 @@
         </div>
       </li>
       <!-- Notifications Dropdown Menu -->
-      <!-- <li class="nav-item dropdown">
+      <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
-          <i class="fa fa-bell-o"></i>
-          <span class="badge badge-warning navbar-badge">15</span>
+          <i class="fas fa-bell"></i>
+          <span class="badge badge-warning navbar-badge">2</span>
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-left">
-          <span class="dropdown-item dropdown-header">15 نوتیفیکیشن</span>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
+          {{--  <span class="dropdown-item dropdown-header">15 نوتیفیکیشن</span>
+          <div class="dropdown-divider"></div>  --}}
+          {{--  <a href="#" class="dropdown-item">
             <i class="fa fa-envelope ml-2"></i> 4 پیام جدید
             <span class="float-left text-muted text-sm">3 دقیقه</span>
-          </a>
+          </a>  --}}
           <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fa fa-users ml-2"></i> 8 درخواست دوستی
-            <span class="float-left text-muted text-sm">12 ساعت</span>
+          <a href="#" class="dropdown-item text-success">
+            <i class="fa fa-users ml-2"></i> به مونوتل خوش آمدید.
+            <span class="float-left text-muted text-sm">مدیریت سایت</span>
           </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fa fa-file ml-2"></i> 3 گزارش جدید
-            <span class="float-left text-muted text-sm">2 روز</span>
+          @if(!isset(session('userInfo')[0]['phone']))
+          <a href="profile" class="dropdown-item text-danger">
+            <i class="fa fa-file ml-2"></i> اطلاعاتتان را تکمیل کنید
+            <span class="float-left text-muted text-sm">مدیریت سایت</span>
           </a>
+          @endif
           <div class="dropdown-divider"></div>
+
+          {{--  <div class="dropdown-divider"></div> --}}
           <a href="#" class="dropdown-item dropdown-footer">مشاهده همه نوتیفیکیشن</a>
         </div>
-      </li> -->
+      </li>
+      {{--  تنظیمات داشبرد  --}}
       <!-- <li class="nav-item">
         <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#"><i
                 class="fa fa-th-large"></i></a>
@@ -190,7 +194,7 @@
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
           <div class="image">
-            <img src="dist/img/avatar.png" class="img-circle elevation-2" alt="User Image">
+            <img src={{"../dist/img/user_image/".session('userInfo')[0]['img'] }} class="img-circle elevation-2" alt="User Image">
           </div>
           <div class="info">
             <a href="/profile" style="color: #fff;" class="d-block">{{ session('userInfo')[0]['name'] }}<i class="fas fa-user-circle"></i>  </a>
@@ -198,7 +202,6 @@
                 @if (session('userInfo')[0]['character_type'] == 'legal')
                     <code style="background: #fff;border-radius:5px; ">&nbsp; حساب حقوقی &nbsp;</code>
                 @endif
-                
 
             </div>
           </div>

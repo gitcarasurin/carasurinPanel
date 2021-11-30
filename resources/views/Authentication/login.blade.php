@@ -37,7 +37,15 @@
             margin: 0 auto;
             margin-top: 100px;
         }
+        .fa-eye{
+            right: 95%;
+            top: -28px;
+            position: relative;
+        }
     </style>
+
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+
 </head>
 <body>
 
@@ -72,8 +80,9 @@
                       <input type="text" class="form-control" id="exampleInputEmail1" name="username" placeholder="نام کاربری">
                     </div>
                     <div class="form-group">
-                      <label for="exampleInputPassword1">Password</label>
-                      <input type="password" class="form-control" id="exampleInputPassword1" name="pass" placeholder="پسورد را وارد کنید">
+                      <label for="pass">گذرواژه</label>
+                      <input type="password" class="form-control" id="pass" name="pass" placeholder="پسورد را وارد کنید">
+                      <i class="fas fa-eye"></i>
                     </div>
                     <div class="form-check">
                       <input type="checkbox" class="form-check-input" id="exampleCheck1">
@@ -118,6 +127,20 @@
     window.location.href="login";
 </script>
 @endisset
+
+
+<script>
+    $(document).ready(function () {
+        $('.fa-eye').click(function () {
+            let status = $("#pass").attr("type");
+            if (status === 'password') {
+                $("#pass").attr("type", "text");
+            }else{
+                $("#pass").attr("type", "password");
+            }
+        });
+    });
+</script>
 
 </body>
 </html>

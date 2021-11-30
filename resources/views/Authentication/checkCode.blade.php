@@ -70,7 +70,7 @@
                     @csrf
                   <div class="card-body">
                     <div class="form-group">
-                      <label for="exampleInputEmail1">کد تایید را وارد کنید. </label>
+                      <label for="exampleInputEmail1">کد تایید ارسال شده به موبایلتان را وارد کنید. </label>
                       <input type="number" class="form-control" id="exampleInputEmail1" name="code" placeholder=" کد تایید را وارد کنید.">
                     </div>
                   </div>
