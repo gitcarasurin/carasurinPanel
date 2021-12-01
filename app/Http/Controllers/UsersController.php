@@ -16,12 +16,7 @@ use App\Models\RealForeign;
 use App\Models\RealIr;
 use App\Models\Token;
 use App\Notifications\Sms;
-use Facade\FlareClient\Api;
-use GuzzleHttp\Client as GuzzleHttpClient;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Redirect;
-use Vonage\Client\Credentials\Basic;
-use Vonage\SMS\Client;
+
 
 class UsersController extends Controller
 {
@@ -107,7 +102,9 @@ class UsersController extends Controller
                 'username' => 'required|unique:users,username|regex:/^\S*$/u',
                 'email'=> 'required|unique:users,username|email:rfc,dns',
                 'pass' => 'bail|required|min:8',
-                'tab'=> 'required'
+                'tab'=> 'required',
+                'representative_nationality'=> 'required | in:real_ir,real_foreign',
+
             ]);
 
             $tab = $request->tab;
@@ -118,7 +115,8 @@ class UsersController extends Controller
 
             if ($tab =='real_ir') {
                 $user = new User;
-                $user->character_type = $tab;
+                $user->character_type = "real";
+                $user->nationality = $request->representative_nationality;
                 $user->phone = $request->phone;
                 $user->username = $request->username;
                 $user->email = $request->email;
@@ -151,7 +149,6 @@ class UsersController extends Controller
             elseif ($tab == 'commercial_law' || $tab =='legals_non_com' || $tab == 'governmental'){
                 $validated = $request->validate([
                     'name_legal' => 'required | max:255',
-                    'representative_nationality'=> 'required | in:real_ir,real_foreign',
                 ]);
 
 
@@ -175,7 +172,6 @@ class UsersController extends Controller
                 }
                 $organization->user_id = $user->id;
                 $organization->name = $request->name_legal;
-                $organization->nationality = $request->representative_nationality;
                 $organization->save();
 
                 if ($request->representative_nationality == "real_ir") {
@@ -263,7 +259,7 @@ class UsersController extends Controller
 
     public function resendCode()
     {
-        $rand_code = rand(1000,9999);
+        $rand_code = rand(10000,99999);
 
         $user = User::where('email',session('email'))->update(['phone_status' => $rand_code]);
         $user = User::where('email',session('email'))->get();

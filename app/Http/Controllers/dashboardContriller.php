@@ -27,26 +27,37 @@ class dashboardContriller extends Controller
                 where('id',session('userInfo')[0]['user_id'])
                 ->update(['img'=>$imageName]);
                 return redirect('profile');
+
+                // تکمیل اطلاعات
             }elseif (isset($request->phone)) {
                 $validated = $request->validate([
-                    'phone' => 'required|max:1000',
+                    'national_number' => 'required|integer',
                     'national_number' => 'required|integer',
                     'national_id' => 'required|integer',
-                    'birthday' => 'required',
+                    'birthd' => 'required',
+                    'birthm' => 'required',
+                    'birthh' => 'required',
                     'place_birth' => 'required',
                     'addres' => 'required',
                     'postal_code' => 'required|integer',
                     'job' => 'required',
                     'education' => 'required',
-
                 ]);
 
-                $time =Verta::parse($request->birthday);
-                $birthday = $time->formatGregorian('Y-m-d H:i:s');
+                // اگر تبعه نبود
+                if (session('userInfo')[0]['nationality'] == 'real_ir') {
+                    $validated = $request->validate([
+                        'national_id' => 'required|integer',
+                    ]);
+                }
+
+                // تبدیل تاریخ
+                $time = Verta::getGregorian($request->birthh,$request->birthm,$request->birthd);
+                dd(implode('-',$time));
 
 
                 User::
-                where('id',session('userInfo')[0]['id'])
+                where('id',['id'])
                 ->update([
                     'phone'=>$request->phone,
                     'national_number'=>$request->national_number,
