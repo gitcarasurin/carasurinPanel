@@ -131,6 +131,8 @@ return array(
         "size" => "اندازه",
         "mytextarea"=>"متن اصلی",
         "image"=>"تصویر",
-        "tag"=>"دسته بندی"
+        "tag"=>"دسته بندی",
+        "name_legal"=>"نام شرکت",
+        "representative_nationality"=>" ملیت نماینده "
     ),
 );

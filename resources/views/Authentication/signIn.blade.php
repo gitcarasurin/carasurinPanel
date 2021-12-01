@@ -94,16 +94,16 @@
                         <input class="tabclass" type="hidden" name="tab" value="">
                         <div class="card-body">
                             <div class="form-group company-name">
-                                <label for="exampleInputEmail1"> نام سازمان  </label>
+                                <label for="exampleInputEmail1"> نام <span class="chtype" >سازمان</span>  </label>
                                 <input type="text" class="form-control" id="exampleInputEmail1" name="name_legal" placeholder="  نام سازمان">
                             </div>
-
-                    <b>مشخصات نماینده سازمان</b>
+                            <hr>
+                    <h3>مشخصات نماینده <span class="chtype" >سازمان</span></h3>
                             <br>
                         <select name="representative_nationality" class="form-select2" aria-label="Default select example">
-                            <option selected value="-">ملیت را انتخاب کنید</option>
+                            <option selected value="-">ملیت نماینده <span class="chtype">سازمان</span></option>
                             <option value="real_ir"> ایرانی</option>
-                            <option value="real_foreign">تبعه</option>
+                            <option value="real_foreign">اتباع خارجی</option>
                         </select>
                     <div class="form-group company-name">
                         <label for="exampleInputEmail1">  نام و نام خانوادگی</label>
@@ -189,9 +189,10 @@
 
 
 
-                <a href="/login">حساب کاربری دارید؟</a>
               </div>
         </div>
+        <a href="/login">حساب کاربری دارید؟</a>
+
     </div>
 
 
@@ -222,14 +223,18 @@
                 if ($(".form-select").val() == 'commercial_law') {
                     $(".all-legal").show();
                     $(".all-real").hide();
+                    $(".chtype").html("شرکت");
+
                 }
                 if ($(".form-select").val() == 'legals_non_com') {
                     $(".all-legal").show();
                     $(".all-real").hide();
+                    $(".chtype").html("شرکت");
                 }
                 if ($(".form-select").val() == 'governmental') {
                     $(".all-legal").show();
                     $(".all-real").hide();
+                    $(".chtype").html("سازمان");
                 }
 
 

@@ -43,16 +43,15 @@ class UsersController extends Controller
 
         $user = User::
         where('username',$request->username)
-        ->leftjoin('legals','user_id','users.id')
-        ->select('users.id','phone_status ','password')
         ->get();
         if(!isset($user[0])){
             return redirect('login?userno');
                 exit;
         }
 
-        if ($user[0]['phone_status '] == 'confirmed') {
-            if (Hash::check($request->pass, $user[0]['password'])){
+        if ($user[0]['phone_status'] == 'confirmed') {
+            if (Hash::check($request->pass, $user[0]['pass'])){
+
                 // rand
                 $seed = str_split('ABCDEFGHIJKLMNOPQRSTUVWXYZ'
                 .'abcdefghijklmnopqrstuvwxyz'
@@ -110,9 +109,12 @@ class UsersController extends Controller
                 'pass' => 'bail|required|min:8',
                 'tab'=> 'required'
             ]);
+
             $tab = $request->tab;
             // dd($tab);
             $rand_code = rand(10000,99999);
+
+            // dd($request->phone);
 
             if ($tab =='real_ir') {
                 $user = new User;
@@ -147,6 +149,12 @@ class UsersController extends Controller
                 $realIr->save();
             }
             elseif ($tab == 'commercial_law' || $tab =='legals_non_com' || $tab == 'governmental'){
+                $validated = $request->validate([
+                    'name_legal' => 'required | max:255',
+                    'representative_nationality'=> 'required | in:real_ir,real_foreign',
+                ]);
+
+
                 $user = new User;
                 $user->character_type = $tab;
                 $user->phone = $request->phone;
@@ -176,18 +184,19 @@ class UsersController extends Controller
                     $realIr->name = $request->name;
                     $realIr->save();
 
-                }elseif ($request->representative_nationality ==  'real_foreign') {
+                }elseif ($request->representative_nationality ==  "real_foreign") {
                     $realIr = new RealForeign();
                     $realIr->user_id = $user->id;
                     $realIr->name = $request->name;
                     $realIr->save();
                 }
 
-                dd("stop");
+                // dd("stop");
             }else{
                 redirect('signIn');
             }
 
+            $request->session()->flush();
 
             session()->put('email',$request->email);
 
@@ -256,8 +265,13 @@ class UsersController extends Controller
     {
         $rand_code = rand(1000,9999);
 
-        User::where('email',session('email'))->update(['phone_status ' => $rand_code]);
-        Mail::send(new ValidationMail($rand_code));
+        $user = User::where('email',session('email'))->update(['phone_status' => $rand_code]);
+        $user = User::where('email',session('email'))->get();
+        $phone = $user[0]['phone'];
+
+        $user = new User ;
+        $user->notify(new Sms($rand_code,$phone));
+
         return Redirect('checkCode?resend');
 
 

@@ -40,9 +40,19 @@ class UserAuth
         if($user[0]['character_type'] == "real_foreign"){
             $userInfo = $userInfo->join('real_foreigns','users.id','real_foreigns.user_id');
         }
+        if($user[0]['character_type'] == "commercial_law"){
+            $userInfo = $userInfo->join('legals_commercials','users.id','legals_commercials.user_id');
+        }
+        if($user[0]['character_type'] == "legals_non_com"){
+            $userInfo = $userInfo->join('legals_non_coms','users.id','legals_non_coms.user_id');
+        }
+        if($user[0]['character_type'] == "governmental"){
+            $userInfo = $userInfo->join('govs','users.id','govs.user_id');
+        }
         $userInfo= $userInfo->get();
 
         session()->put('userInfo',$userInfo);
+
         return $next($request);
     }
 }
