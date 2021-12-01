@@ -4,12 +4,28 @@
 
 
 
-# Routes  = [/]
-  [add category div in](resources/views/product-list.blade.php)[line=57]
-  [add style](public/css/style.css)[line=377]
+# 
+Routes  = [/]
 ```json
 "Number of changes"="1.0.5":[
-    "Name"=>
-    ""
+    "وابستگی ها"=>"Middleware/UserAuth || Middleware/menuControlMidel"
 ]
 ```
+
+# 
+Routes  = [profile]
+```json
+"Number of changes"="1.0.1":[
+    "وابستگی ها"=>"Middleware/UserAuth"
+]
+```
+
+# 
+Routes  = [signIn]
+```json
+"Number of changes"="2.5.1":[
+    "وابستگی ها"=>""
+    "توضیحات"=>"notify دو پارامتر میگیرد برای ارسال پیامک"
+]
+```
+

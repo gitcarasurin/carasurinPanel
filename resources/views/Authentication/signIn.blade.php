@@ -60,8 +60,7 @@
 
                 <select class="form-select" aria-label="Default select example">
                     <option selected value="-">نوع شخصیت را انتخاب کنید</option>
-                    <option value="real_ir">حقیقی ایرانی</option>
-                    <option value="real_foreign">حقیقی تبعه</option>
+                    <option value="real_ir">حقیقی</option>
                     <option value="commercial_law">حقوقی تجاری</option>
                     <option value="legals_non_com">حقوقی غیر تجاری</option>
                     <option value="governmental">سازمان دولتی </option>
@@ -95,7 +94,7 @@
                         <div class="card-body">
                             <div class="form-group company-name">
                                 <label for="exampleInputEmail1"> نام <span class="chtype" >سازمان</span>  </label>
-                                <input type="text" class="form-control" id="exampleInputEmail1" name="name_legal" placeholder="  نام سازمان">
+                                <input type="text" class="form-control chtypeinp" id="exampleInputEmail1" name="name_legal" placeholder="  نام سازمان">
                             </div>
                             <hr>
                     <h3>مشخصات نماینده <span class="chtype" >سازمان</span></h3>
@@ -148,6 +147,7 @@
                         @csrf
                         <input class="tabclass" type="hidden" name="tab" value="">
                         <div class="card-body">
+
                     <div class="form-group company-name">
                         <label for="exampleInputEmail1">  نام و نام خانوادگی</label>
                         <input type="text" class="form-control" id="exampleInputEmail1" name="name" placeholder="  نام و نام خانوادگی">
@@ -164,6 +164,14 @@
                         <div class="form-group">
                             <label for="exampleInputEmail1" class="legallabel"> شماره تلفن</label>
                             <input type="tel" class="form-control legalname" id="exampleInputphone" name="phone" placeholder="09123456789 ">
+                        </div>
+                        <div class="form-group">
+                            <label for="representative_nationality" class="legallabel"> ملیت </label>
+                            <select name="representative_nationality" id="representative_nationality" class="form-select" aria-label="Default select example">
+                                <option selected value="-">ملیت</option>
+                                <option value="real_ir"> ایرانی</option>
+                                <option value="real_foreign">اتباع خارجی</option>
+                            </select>
                         </div>
                         <div class="form-group">
                         <label for="exampleInputPassword1">کلمه عبور</label>
@@ -224,17 +232,22 @@
                     $(".all-legal").show();
                     $(".all-real").hide();
                     $(".chtype").html("شرکت");
+                    $('.chtypeinp').attr("placeholder", "نام شرکت");
 
                 }
                 if ($(".form-select").val() == 'legals_non_com') {
                     $(".all-legal").show();
                     $(".all-real").hide();
-                    $(".chtype").html("شرکت");
+                    $(".chtype").html("شخصیت حقوقی");
+                    $('.chtypeinp').attr("placeholder", "نام شخصیت حقوقی");
+
                 }
                 if ($(".form-select").val() == 'governmental') {
                     $(".all-legal").show();
                     $(".all-real").hide();
                     $(".chtype").html("سازمان");
+                    $('.chtypeinp').attr("placeholder", "نام سازمان");
+
                 }
 
 

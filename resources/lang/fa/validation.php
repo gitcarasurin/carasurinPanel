@@ -133,6 +133,18 @@ return array(
         "image"=>"تصویر",
         "tag"=>"دسته بندی",
         "name_legal"=>"نام شرکت",
-        "representative_nationality"=>" ملیت نماینده "
+        "representative_nationality"=>" ملیت نماینده ",
+        "imageUser"=>"تصویر کاربر",
+        "birthd"=>"روز تولد",
+        "birthm"=>"ماه تولد",
+        "birthh"=>"سال تولد",
+        "national_number"=>"شماره شناسنامه",
+        "national_id"=>"شماره ملی",
+        "place_birth"=>"محل تولد",
+        "addres"=>"آدرس",
+        "postal_code"=>"کد پستی",
+        "job"=>"شغل",
+        "education"=>"تحصیلات",
+
     ),
 );

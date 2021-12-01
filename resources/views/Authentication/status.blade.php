@@ -71,7 +71,7 @@
 
 
 
-            @isset ($_GET['emailcodeno'])
+            {{--  @isset ($_GET['emailcodeno'])
                 <!-- small box -->
                 <div class="small-box bg-red">
                   <div class="inner">
@@ -86,7 +86,7 @@
                     برای تایید  ایمیل کلیک کنید. <i class="fa fa-arrow-circle-right"></i>
                   </a>
                 </div>
-            @endisset
+            @endisset  --}}
 
             @isset ($_GET['emailcodeno'])
             <!-- small box -->
@@ -94,13 +94,13 @@
                   <div class="inner">
                     <h3> دسترسی ندارید</h3>
 
-                    <p>لطفا ابتدا ایمیل خود را تایید کنید.</p>
+                    <p>لطفا ابتدا شماره تلفن خود را تایید کنید.</p>
                   </div>
                   <div class="icon">
                     <i class="fa fa-ban"></i>
                   </div>
                   <a href="/resendCode" class="small-box-footer">
-                    برای تایید  ایمیل کلیک کنید. <i class="fa fa-arrow-circle-right"></i>
+                    برای تلفن  ایمیل کلیک کنید. <i class="fa fa-arrow-circle-right"></i>
                   </a>
                 </div>
             @endisset

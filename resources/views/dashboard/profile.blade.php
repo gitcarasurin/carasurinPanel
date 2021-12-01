@@ -16,7 +16,7 @@
                 <!-- Add the bg color to the header using any of the bg-* classes -->
                 <div class="widget-user-header bg-info-active">
                   <h3 class="widget-user-username">{{ session('userInfo')[0]['name'] }}</h3>
-                  <h5 class="widget-user-desc" style="text-decoration: underline;"><?php echo (session('userInfo')[0]['character_type'] != 'real_ir' && session('userInfo')[0]['character_type'] != 'real_foreign') ? '<a href="a" >تکمیل اطلاعات حساب حقوقی.</a>' : ''; ?></h5>
+                  <h5 class="widget-user-desc" style="text-decoration: underline;"><?php echo (session('userInfo')[0]['character_type'] != 'real_ir' && session('userInfo')[0]['character_type'] != 'real_foreign') ? '<a href="a" >جهت تکمیل اطلاعات حساب حقوقی.</a>' : ''; ?></h5>
                 </div>
                 <div class="widget-user-image">
                     <img class="img-circle elevation-2" src={{"../dist/img/user_image/".session('userInfo')[0]['img'] }} alt="User Avatar">
@@ -44,15 +44,7 @@
                         </form>
                         </div>
 
-                        @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+
 
                       <!-- /.description-block -->
                     </div>
@@ -77,7 +69,7 @@
         </div>
     </div>
 
-@if(!isset(session('userInfo')[0]['phone']))
+@if(!isset(session('userInfo')[0]['email_status']))
 
     <div class="row">
         <div class="col-md-6 box">
@@ -88,6 +80,17 @@
                 <!-- /.card-header -->
                 <!-- form start -->
                 <form role="form" method="POST">
+
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
                     @csrf
                   <div class="card-body">
                     <div class="form-group">
@@ -96,19 +99,28 @@
                     </div>
                     <div class="form-group">
                         <label for="phone">شماره موبایل </label>
-                        <input type="tel" class="form-control" name="phone"  id="phone" placeholder="09123456789">
+                        <input type="tel" class="form-control" name="phone"  id="phone" value="{{ session('userInfo')[0]['phone'] }}" readonly>
                     </div>
                     <div class="form-group">
-                        <label for="national_number">شماره شناسنامه </label>
+                        <label for="national_number">@if (session('userInfo')[0]['nationality'] == 'real_ir') شماره شناسنامه @else شماره پاسپورت  @endif </label>
                         <input type="number" class="form-control" name="national_number"  id="national_number" placeholder="1234567890">
                     </div>
+                    @if (session('userInfo')[0]['nationality'] == 'real_ir')
                     <div class="form-group">
                         <label for="national_id">شماره ملی </label>
                         <input type="number" class="form-control" name="national_id"  id="national_id" placeholder="1234567890">
                     </div>
+                    @endif
                     <div class="form-group">
                         <label for="birthday">تولد </label>
-                        <input type="text" class="form-control" name="birthday"  id="birthday" placeholder="20-02-1365">
+                        <div class="row">
+                            <div class="col-md-4">روز</div>
+                            <div class="col-md-4">ماه</div>
+                            <div class="col-md-4">سال</div>
+                        </div>
+                        <input type="number" style="width: 28%; display: inline;" class="form-control" name="birthd" min="2"  id="birthday" placeholder="02">/
+                        <input type="number" style="width: 28%; display: inline;" class="form-control" name="birthm"  min="2" id="birthday" placeholder="05">/
+                        <input type="number" style="width: 28%; display: inline;" class="form-control" name="birthh" min="4"  id="birthday" placeholder="1365">
                     </div>
                     <div class="form-group">
                         <label for="place_birth">محل تولد </label>
@@ -120,7 +132,7 @@
                         <input type="tel" class="form-control" name="addres"  id="addres" placeholder="خراسان رضوی - مشهد - خیابان 10 - کوچه 3 - پلاک 2">
                     </div>
                     <div class="form-group">
-                        <label for="postal_code">شماره پستی </label>
+                        <label for="postal_code">کدپستی </label>
                         <input type="tel" class="form-control" name="postal_code"  id="postal_code" placeholder="12345678901">
                     </div>
 

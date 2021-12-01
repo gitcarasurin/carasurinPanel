@@ -34,11 +34,13 @@ class UserAuth
         if (!isset($user[0]['character_type'])) {
             return redirect('status?denyAccess');
         }
-        if ($user[0]['character_type'] == "real_ir") {
-            $userInfo = $userInfo->join('real_irs','users.id','real_irs.user_id');
-        }
-        if($user[0]['character_type'] == "real_foreign"){
-            $userInfo = $userInfo->join('real_foreigns','users.id','real_foreigns.user_id');
+        if ($user[0]['character_type'] == "real") {
+            if ($user[0]['nationality'] == "real_ir") {
+                $userInfo = $userInfo->join('real_irs','users.id','real_irs.user_id');
+            }else {
+                $userInfo = $userInfo->join('real_foreigns','users.id','real_foreigns.user_id');
+            }
+
         }
         if($user[0]['character_type'] == "commercial_law"){
             $userInfo = $userInfo->join('legals_commercials','users.id','legals_commercials.user_id');

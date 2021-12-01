@@ -158,6 +158,8 @@
             <i class="fa fa-users ml-2"></i> به مونوتل خوش آمدید.
             <span class="float-left text-muted text-sm">مدیریت سایت</span>
           </a>
+          <div class="dropdown-divider"></div>
+
           @if(!isset(session('userInfo')[0]['email_status']))
           <a href="profile" class="dropdown-item text-danger">
             <i class="fa fa-file ml-2"></i> اطلاعاتتان را تکمیل کنید
