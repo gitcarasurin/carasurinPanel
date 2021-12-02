@@ -60,10 +60,10 @@
 
                 <select class="form-select" aria-label="Default select example">
                     <option selected value="-">نوع شخصیت را انتخاب کنید</option>
-                    <option value="real_ir">حقیقی</option>
+                    <option value="real">حقیقی</option>
                     <option value="commercial_law">حقوقی تجاری</option>
                     <option value="legals_non_com">حقوقی غیر تجاری</option>
-                    <option value="governmental">سازمان دولتی </option>
+                    <option value="governmental">دولتی و  سازمان ها </option>
                 </select>
                 <!-- /.card-header -->
                 <!-- form start -->
@@ -86,49 +86,67 @@
                 @endif
 
 
-
-                <div class="all-legal">
+                <div class="commercial_law all-form">
                     <form role="form" method="POST">
                         @csrf
                         <input class="tabclass" type="hidden" name="tab" value="">
                         <div class="card-body">
                             <div class="form-group company-name">
-                                <label for="exampleInputEmail1"> نام <span class="chtype" >سازمان</span>  </label>
+                                <label for="exampleInputEmail1"> نام <span class="chtype" >شخصیت</span>  </label>
                                 <input type="text" class="form-control chtypeinp" id="exampleInputEmail1" name="name_legal" placeholder="  نام سازمان">
                             </div>
                             <hr>
-                    <h3>مشخصات نماینده <span class="chtype" >سازمان</span></h3>
+                    <!-- <h3>مشخصات نماینده <span class="chtype" >سازمان</span></h3> -->
                             <br>
-                        <select name="representative_nationality" class="form-select2" aria-label="Default select example">
-                            <option selected value="-">ملیت نماینده <span class="chtype">سازمان</span></option>
+                        <label for="representative_nationality">ملیت مدیر عامل</label>
+                        <select name="representative_nationality" id="representative_nationality" class="form-select2 col-md-12" aria-label="Default select example">
+                            <option selected value="-"> انتخاب کنید </option>
                             <option value="real_ir"> ایرانی</option>
                             <option value="real_foreign">اتباع خارجی</option>
                         </select>
-                    <div class="form-group company-name">
+                    <!-- <div class="form-group company-name">
                         <label for="exampleInputEmail1">  نام و نام خانوادگی</label>
                         <input type="text" class="form-control" id="exampleInputEmail1" name="name" placeholder="  نام و نام خانوادگی">
+                    </div> -->
+                    <br>
+                    <br>
+                    <div class="form-group company-name">
+                        <label for="company_type">نوع شرکت</label>
+                        <select name="company_type" id="company_type" class="form-select2 col-md-12" aria-label="Default select example">
+                            <option selected value="-"> انتخاب کنید </option>
+                            <option value="real_ir"> سهامی خاص </option>
+                            <option value="real_foreign"> سهامی عام </option>
+                            <option value="real_foreign"> با مسئولیت محدود </option>
+                            <option value="real_foreign"> تضامنی </option>
+                            <option value="real_foreign"> مختلط سهامی </option>
+                            <option value="real_foreign"> مختلط غیر سهامی </option>
+                            <option value="real_foreign">  نسبی </option>
+                            <option value="real_foreign">  تعاونی </option>
+                        </select>
                     </div>
                     <div class="card-body">
-                        <div class="form-group">
-                        <label for="exampleInputEmail1">نام کاربری </label>
-                        <input type="text" class="form-control" id="exampleInputEmail1" name="username" placeholder="نام کاربری">
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">ایمیل  </label>
-                            <input type="email" class="form-control" id="exampleInputEmail1" name="email" placeholder="ایمیل">
-                        </div>
+
+
                         <div class="form-group">
                             <label for="exampleInputEmail1" class="legallabel"> شماره تلفن</label>
                             <input type="tel" class="form-control legalname" id="exampleInputphone" name="phone" placeholder="09123456789 ">
                         </div>
                         <div class="form-group">
+                            <label for="exampleInputEmail1">ایمیل  </label>
+                            <input type="email" class="form-control" id="exampleInputEmail1" name="email" placeholder="email@nail.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">نام کاربری </label>
+                            <input type="text" class="form-control" id="exampleInputEmail1" name="username" placeholder="نام کاربری">
+                        </div>
+                        <div class="form-group">
                         <label for="exampleInputPassword1">کلمه عبور</label>
                         <input type="password" class="form-control" id="exampleInputPassword1" name="pass" placeholder="پسورد را وارد کنید">
                         </div>
-                        {{-- <div class="form-group">
+                        <div class="form-group">
                             <label for="exampleInputPassword1"> تکرار کلمه عبور</label>
-                            <input type="password" class="form-control" id="exampleInputPassword1" name="repass" placeholder="پسورد را وارد کنید">
-                        </div> --}}
+                            <input type="password" class="form-control repass" name="repass" placeholder="پسورد را وارد کنید">
+                        </div>
                         <div class="form-check">
                         <input type="checkbox" class="form-check-input" id="exampleCheck1">
                         <label class="form-check-label" for="exampleCheck1">مرا بخاطر بسپار</label>
@@ -142,7 +160,130 @@
                     </form>
                 </div>
 
-                <div class="all-real">
+                <div class="governmental all-form">
+                    <form role="form" method="POST">
+                        @csrf
+                        <input class="tabclass" type="hidden" name="tab" value="">
+                        <div class="card-body">
+                            <div class="form-group company-name">
+                                <label for="exampleInputEmail1"> نام <span class="chtype" >سازمان</span>  </label>
+                                <input type="text" class="form-control chtypeinp" id="exampleInputEmail1" name="name_legal" placeholder="  نام سازمان">
+                            </div>
+                            <hr>
+
+                    <br>
+                    <div class="form-group company-name">
+                        <label for="company_type">نوع سازمان</label>
+                        <select name="company_type" id="company_type" class="form-select2 col-md-12" aria-label="Default select example">
+                            <option selected value="-"> انتخاب کنید </option>
+                            <option value="real_ir"> دولتی </option>
+                            <option value="real_foreign"> نهاد عمومی غیر دولتی </option>
+                        </select>
+                    </div>
+                    <div class="card-body">
+
+
+                        <div class="form-group">
+                            <label for="exampleInputEmail1" class="legallabel"> شماره تلفن</label>
+                            <input type="tel" class="form-control legalname" id="exampleInputphone" name="phone" placeholder="09123456789 ">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">ایمیل  </label>
+                            <input type="email" class="form-control" id="exampleInputEmail1" name="email" placeholder="email@nail.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">نام کاربری </label>
+                            <input type="text" class="form-control" id="exampleInputEmail1" name="username" placeholder="نام کاربری">
+                        </div>
+                        <div class="form-group">
+                        <label for="exampleInputPassword1">کلمه عبور</label>
+                        <input type="password" class="form-control pass" id="exampleInputPassword1" name="pass" placeholder="پسورد را وارد کنید">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1"> تکرار کلمه عبور</label>
+                            <input type="password" class="form-control repass"  name="repass" placeholder="پسورد را وارد کنید">
+                        </div>
+                        <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                        <label class="form-check-label" for="exampleCheck1">مرا بخاطر بسپار</label>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+                        </div>
+                    <div class="card-footer" style="text-align: center;">
+                        <button type="submit" class="btn  btn-lg" style="background: #84be38; color: #2c4012;width: 40%; ">ثبت نام</button>
+                    </div>
+                    </form>
+                </div>
+
+                <div class="legals_non_com all-form">
+                    <form role="form" method="POST">
+                        @csrf
+                        <input class="tabclass" type="hidden" name="tab" value="">
+                        <div class="card-body">
+                            <div class="form-group company-name">
+                                <label for="exampleInputEmail1"> نام <span class="chtype" >شرکت</span>  </label>
+                                <input type="text" class="form-control chtypeinp" id="exampleInputEmail1" name="name_legal" placeholder="  نام سازمان">
+                            </div>
+                            <hr>
+                    <!-- <h3>مشخصات نماینده <span class="chtype" >سازمان</span></h3> -->
+
+                    <!-- <div class="form-group company-name">
+                        <label for="exampleInputEmail1">  نام و نام خانوادگی</label>
+                        <input type="text" class="form-control" id="exampleInputEmail1" name="name" placeholder="  نام و نام خانوادگی">
+                    </div> -->
+                    <br>
+
+                    <div class="form-group company-name">
+                        <label for="representative_nationality">نوع شخصیت</label>
+                        <select name="representative_nationality" id="representative_nationality" class="form-select2 col-md-12" aria-label="Default select example">
+                            <option selected value="-"> انتخاب کنید </option>
+                            <option value="real_ir"> موسسه </option>
+                            <option value="real_foreign"> انتشارات </option>
+                            <option value="real_foreign"> کانون </option>
+                            <option value="real_foreign"> انجمن </option>
+                            <option value="real_foreign"> اتحادیه اتاق بازرگانی </option>
+                            <option value="real_foreign"> سازمان های مردم نهاد </option>
+                        </select>
+                    </div>
+                    <div class="card-body">
+
+
+                        <div class="form-group">
+                            <label for="exampleInputEmail1" class="legallabel"> شماره تلفن</label>
+                            <input type="tel" class="form-control legalname" id="exampleInputphone" name="phone" placeholder="09123456789 ">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">ایمیل  </label>
+                            <input type="email" class="form-control" id="exampleInputEmail1" name="email" placeholder="email@nail.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">نام کاربری </label>
+                            <input type="text" class="form-control" id="exampleInputEmail1" name="username" placeholder="نام کاربری">
+                        </div>
+                        <div class="form-group">
+                        <label for="exampleInputPassword1">کلمه عبور</label>
+                        <input type="password" class="form-control pass" id="exampleInputPassword1" name="pass" placeholder="پسورد را وارد کنید">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1"> تکرار کلمه عبور</label>
+                            <input type="password" class="form-control repass"  name="repass" placeholder="پسورد را وارد کنید">
+                        </div>
+                        <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                        <label class="form-check-label" for="exampleCheck1">مرا بخاطر بسپار</label>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+                        </div>
+                    <div class="card-footer" style="text-align: center;">
+                        <button type="submit" class="btn  btn-lg" style="background: #84be38; color: #2c4012;width: 40%; ">ثبت نام</button>
+                    </div>
+                    </form>
+                </div>
+
+
+                <div class="all-real all-form">
                     <form role="form" method="POST">
                         @csrf
                         <input class="tabclass" type="hidden" name="tab" value="">
@@ -152,35 +293,37 @@
                         <label for="exampleInputEmail1">  نام و نام خانوادگی</label>
                         <input type="text" class="form-control" id="exampleInputEmail1" name="name" placeholder="  نام و نام خانوادگی">
                     </div>
+                    <div class="form-group">
+                        <label for="representative_nationality" class="legallabel"> تابعیت </label>
+                        <select name="representative_nationality" id="representative_nationality" class="form-select" aria-label="Default select example">
+                            <option selected value="-">انتخاب کنید</option>
+                            <option value="real_ir"> ایرانی</option>
+                            <option value="real_foreign">غیر ایررانی</option>
+                        </select>
+                    </div>
                     <div class="card-body">
-                        <div class="form-group">
-                        <label for="exampleInputEmail1">نام کاربری </label>
-                        <input type="text" class="form-control" id="exampleInputEmail1" name="username" placeholder="نام کاربری">
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">ایمیل  </label>
-                            <input type="email" class="form-control" id="exampleInputEmail1" name="email" placeholder="ایمیل">
-                        </div>
+
                         <div class="form-group">
                             <label for="exampleInputEmail1" class="legallabel"> شماره تلفن</label>
                             <input type="tel" class="form-control legalname" id="exampleInputphone" name="phone" placeholder="09123456789 ">
                         </div>
                         <div class="form-group">
-                            <label for="representative_nationality" class="legallabel"> ملیت </label>
-                            <select name="representative_nationality" id="representative_nationality" class="form-select" aria-label="Default select example">
-                                <option selected value="-">ملیت</option>
-                                <option value="real_ir"> ایرانی</option>
-                                <option value="real_foreign">اتباع خارجی</option>
-                            </select>
+                            <label for="exampleInputEmail1">ایمیل  </label>
+                            <input type="email" class="form-control" id="exampleInputEmail1" name="email" placeholder="ایمیل">
                         </div>
+
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">نام کاربری </label>
+                            <input type="text" class="form-control" id="exampleInputEmail1" name="username" placeholder="نام کاربری">
+                            </div>
                         <div class="form-group">
                         <label for="exampleInputPassword1">کلمه عبور</label>
-                        <input type="password" class="form-control" id="exampleInputPassword1" name="pass" placeholder="پسورد را وارد کنید">
+                        <input type="password" class="form-control pass" id="pass" name="pass" placeholder="پسورد را وارد کنید">
                         </div>
-                        {{-- <div class="form-group">
+                        <div class="form-group">
                             <label for="exampleInputPassword1"> تکرار کلمه عبور</label>
-                            <input type="password" class="form-control" id="exampleInputPassword1" name="repass" placeholder="پسورد را وارد کنید">
-                        </div> --}}
+                            <input type="password" class="form-control repass"  name="repass" placeholder="پسورد را وارد کنید">
+                        </div>
                         <div class="form-check">
                         <input type="checkbox" class="form-check-input" id="exampleCheck1">
                         <label class="form-check-label" for="exampleCheck1">مرا بخاطر بسپار</label>
@@ -209,9 +352,10 @@
     <script>
         $(document).ready(function () {
 
-            $(".all-real").hide();
-            $(".all-legal").hide();
+            $(".all-form").hide();
             $(".form-select").change(function () {
+            $(".all-form").hide();
+
                 let type = $(this).val();
                 $(".tabclass").val(type);
                 if ($(".form-select").val() == '-') {
@@ -219,41 +363,79 @@
                     $(".all-legal").hide();
                 }
 
-                if ($(".form-select").val() == 'real_ir') {
+                if ($(".form-select").val() == 'real') {
                     $(".all-real").show();
-                    $(".all-legal").hide();
-                }
-                if ($(".form-select").val() == 'real_foreign') {
-                    $(".all-real").show();
-                    $(".all-legal").hide();
                 }
 
                 if ($(".form-select").val() == 'commercial_law') {
-                    $(".all-legal").show();
-                    $(".all-real").hide();
-                    $(".chtype").html("شرکت");
-                    $('.chtypeinp').attr("placeholder", "نام شرکت");
-
+                    $(".commercial_law").show();
                 }
                 if ($(".form-select").val() == 'legals_non_com') {
-                    $(".all-legal").show();
-                    $(".all-real").hide();
-                    $(".chtype").html("شخصیت حقوقی");
-                    $('.chtypeinp').attr("placeholder", "نام شخصیت حقوقی");
-
+                    $(".legals_non_com").show();
                 }
                 if ($(".form-select").val() == 'governmental') {
-                    $(".all-legal").show();
-                    $(".all-real").hide();
-                    $(".chtype").html("سازمان");
-                    $('.chtypeinp').attr("placeholder", "نام سازمان");
-
+                    $(".governmental").show();
                 }
 
-
-
-
             });
+
+             // برسی تکرار پسورد
+            $(".all-real .repass").keyup(function(){
+
+                let mainPass = $(".all-real .pass").val();
+                let repass = $(".all-real .repass").val();
+                if (mainPass === repass) {
+                    $(".all-real .repass").css("border", "2px solid #28a745");
+                }else{
+                    $(".all-real .repass").css("border", "2px solid #f00");
+                }
+            });
+
+            $(".all-real .repass").keyup(function(){
+
+                let mainPass = $(".all-real .pass").val();
+                let repass = $(".all-real .repass").val();
+                if (mainPass === repass) {
+                    $(".all-real .repass").css("border", "2px solid #28a745");
+                }else{
+                    $(".all-real .repass").css("border", "2px solid #f00");
+                }
+            });
+
+            $(".commercial_law .repass").keyup(function(){
+
+                let mainPass = $(".commercial_law .pass").val();
+                let repass = $(".commercial_law .repass").val();
+                if (mainPass === repass) {
+                    $(".commercial_law .repass").css("border", "2px solid #28a745");
+                }else{
+                    $(".commercial_law .repass").css("border", "2px solid #f00");
+                }
+            });
+
+            $(".legals_non_com .repass").keyup(function(){
+
+                let mainPass = $(".legals_non_com .pass").val();
+                let repass = $(".legals_non_com .repass").val();
+                if (mainPass === repass) {
+                    $(".legals_non_com .repass").css("border", "2px solid #28a745");
+                }else{
+                    $(".legals_non_com .repass").css("border", "2px solid #f00");
+                }
+            });
+
+            $(".governmental .repass").keyup(function(){
+
+                let mainPass = $(".governmental .pass").val();
+                let repass = $(".governmental .repass").val();
+                if (mainPass === repass) {
+                    $(".governmental .repass").css("border", "2px solid #28a745");
+                }else{
+                    $(".governmental .repass").css("border", "2px solid #f00");
+                }
+            });
+
+
         });
     </script>
     <!-- ver=1.0.0 -->

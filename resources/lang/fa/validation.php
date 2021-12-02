@@ -133,7 +133,7 @@ return array(
         "image"=>"تصویر",
         "tag"=>"دسته بندی",
         "name_legal"=>"نام شرکت",
-        "representative_nationality"=>" ملیت نماینده ",
+        "representative_nationality"=>" ملیت ",
         "imageUser"=>"تصویر کاربر",
         "birthd"=>"روز تولد",
         "birthm"=>"ماه تولد",
@@ -145,6 +145,8 @@ return array(
         "postal_code"=>"کد پستی",
         "job"=>"شغل",
         "education"=>"تحصیلات",
+        "repass"=>"تکرار کلمه عبور",
+        "company_type"=>"نوع سازمان"
 
     ),
 );

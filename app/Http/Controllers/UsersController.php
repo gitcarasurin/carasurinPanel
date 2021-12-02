@@ -4,11 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Legals;
 use App\Models\User;
-use Dotenv\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Mail;
-use App\Mail\ValidationMail;
 use App\Models\Gov;
 use App\Models\LegalsCommercial;
 use App\Models\LegalsNonCom;
@@ -97,54 +94,74 @@ class UsersController extends Controller
 
         if ($request->isMethod('post')) {
 
+
+
+
+
             $validated = $request->validate([
-                'phone' => 'bail|required|max:255',
+                'phone' => 'required|max:255',
                 'username' => 'required|unique:users,username|regex:/^\S*$/u',
                 'email'=> 'required|unique:users,username|email:rfc,dns',
-                'pass' => 'bail|required|min:8',
                 'tab'=> 'required',
-                'representative_nationality'=> 'required | in:real_ir,real_foreign',
-
+                'pass' => 'required|min:8|required_with:repass|same:repass',
+                'repass'=>'required'
             ]);
 
+
+
+
+
             $tab = $request->tab;
+            if ($tab == "commercial_law" || $tab == "real" ) {
+                $validated = $request->validate([
+                    'representative_nationality'=> 'required | in:real_ir,real_foreign',
+                ]);
+            }
+
+            if ($tab != "real" ) {
+                $validated = $request->validate([
+                    'company_type'=> 'required | in:real_ir,real_foreign',
+                ]);
+            }
+
             // dd($tab);
             $rand_code = rand(10000,99999);
 
             // dd($request->phone);
 
-            if ($tab =='real_ir') {
-                $user = new User;
-                $user->character_type = "real";
-                $user->nationality = $request->representative_nationality;
-                $user->phone = $request->phone;
-                $user->username = $request->username;
-                $user->email = $request->email;
-                $user->phone_status  = $rand_code;
-                $user->pass = bcrypt($request->pass);
-                $user->save();
-
-                $realIr = new RealIr;
-                $realIr->user_id = $user->id;
-                $realIr->name = $request->name;
-                $realIr->save();
-            }
-            elseif ($tab == 'real_foreign') {
-
-                $user = new User;
-                $user->character_type = $tab;
-                $user->phone = $request->phone;
-                $user->username = $request->username;
-                $user->email = $request->email;
-                $user->phone_status  = $rand_code;
-                $user->pass = bcrypt($request->pass);
-                $user->save();
+            if ($tab =='real') {
+                if ($request->representative_nationality == "real_foreign") {
+                    $user = new User;
+                    $user->character_type = $tab;
+                    $user->phone = $request->phone;
+                    $user->username = $request->username;
+                    $user->email = $request->email;
+                    $user->phone_status  = $rand_code;
+                    $user->pass = bcrypt($request->pass);
+                    $user->save();
 
 
-                $realIr = new RealForeign();
-                $realIr->user_id = $user->id;
-                $realIr->name = $request->name;
-                $realIr->save();
+                    $realIr = new RealForeign();
+                    $realIr->user_id = $user->id;
+                    $realIr->name = $request->name;
+                    $realIr->save();
+                }else {
+                    $user = new User;
+                    $user->character_type = "real";
+                    $user->nationality = $request->representative_nationality;
+                    $user->phone = $request->phone;
+                    $user->username = $request->username;
+                    $user->email = $request->email;
+                    $user->phone_status  = $rand_code;
+                    $user->pass = bcrypt($request->pass);
+                    $user->save();
+
+                    $realIr = new RealIr;
+                    $realIr->user_id = $user->id;
+                    $realIr->name = $request->name;
+                    $realIr->save();
+                }
+
             }
             elseif ($tab == 'commercial_law' || $tab =='legals_non_com' || $tab == 'governmental'){
                 $validated = $request->validate([
