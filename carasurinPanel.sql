@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Nov 30, 2021 at 07:56 AM
+-- Generation Time: Dec 02, 2021 at 01:11 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.12
 
@@ -40,62 +40,65 @@ CREATE TABLE `failed_jobs` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `gov`
+-- Table structure for table `govs`
 --
 
-CREATE TABLE `gov` (
+CREATE TABLE `govs` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `name` varchar(255) COLLATE utf8_persian_ci NOT NULL,
-  `company_type` enum('gov','public') COLLATE utf8_persian_ci NOT NULL,
-  `nationality` enum('real_ir','real_foreign') COLLATE utf8_persian_ci NOT NULL,
-  `national_number` bigint(20) NOT NULL,
+  `company_type` enum('gov','public') COLLATE utf8_persian_ci DEFAULT NULL,
+  `national_number` bigint(20) DEFAULT NULL,
   `economic_code` bigint(20) DEFAULT NULL,
-  `tel` bigint(20) NOT NULL,
-  `img` varchar(1000) COLLATE utf8_persian_ci NOT NULL,
+  `tel` bigint(20) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci COMMENT='دولتی ـ سازمان';
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `legals_commercial`
+-- Table structure for table `legals_commercials`
 --
 
-CREATE TABLE `legals_commercial` (
+CREATE TABLE `legals_commercials` (
   `id` int(11) NOT NULL,
   `user_id` int(20) NOT NULL,
   `name` varchar(255) COLLATE utf8_persian_ci NOT NULL,
-  `company_type` varchar(500) COLLATE utf8_persian_ci NOT NULL,
-  `nationality` enum('real_ir','real_foreign') COLLATE utf8_persian_ci NOT NULL,
+  `company_type` enum('private_equity','public_stock','limited_responsibility','solidarity','mixed_stock','Non_joint_stock_mixed','relative','cooperative') COLLATE utf8_persian_ci DEFAULT NULL,
   `registration_number` int(11) DEFAULT NULL,
   `economic_code` int(11) DEFAULT NULL,
   `national_number` int(11) DEFAULT NULL,
   `tel` int(11) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci COMMENT='حقوقی تجاری';
+
+--
+-- Dumping data for table `legals_commercials`
+--
+
+INSERT INTO `legals_commercials` (`id`, `user_id`, `name`, `company_type`, `registration_number`, `economic_code`, `national_number`, `tel`, `created_at`, `updated_at`) VALUES
+(13, 60, 'azimiddd', 'limited_responsibility', NULL, NULL, NULL, NULL, '2021-12-02 08:32:24', '2021-12-02 08:32:24');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `legals_non_com`
+-- Table structure for table `legals_non_coms`
 --
 
-CREATE TABLE `legals_non_com` (
+CREATE TABLE `legals_non_coms` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `name` varchar(255) COLLATE utf8_persian_ci NOT NULL,
-  `nationality` enum('real_ir','real_foreign') COLLATE utf8_persian_ci NOT NULL,
-  `company_type` varchar(255) COLLATE utf8_persian_ci NOT NULL,
-  `registration_number` int(11) NOT NULL,
-  `economic_code` int(11) NOT NULL,
-  `national_number` int(11) NOT NULL,
-  `tel` int(11) NOT NULL,
+  `company_type` enum('institute','publishers','canon','union','chamber_commerce','NGO') COLLATE utf8_persian_ci DEFAULT NULL,
+  `registration_number` int(11) DEFAULT NULL,
+  `economic_code` int(11) DEFAULT NULL,
+  `national_number` int(11) DEFAULT NULL,
+  `tel` int(11) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci COMMENT='حقوقی غیرتجاری';
 
 -- --------------------------------------------------------
 
@@ -107,52 +110,66 @@ CREATE TABLE `menus` (
   `id` int(11) NOT NULL,
   `menu_id` int(11) DEFAULT NULL,
   `name` varchar(255) COLLATE utf8_persian_ci NOT NULL,
-  `title` varchar(200) COLLATE utf8_persian_ci NOT NULL,
+  `title` varchar(200) COLLATE utf8_persian_ci NOT NULL COMMENT 'fa',
   `icon` varchar(50) COLLATE utf8_persian_ci NOT NULL,
   `link` varchar(250) COLLATE utf8_persian_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci COMMENT='منو ها';
+
+--
+-- Dumping data for table `menus`
+--
+
+INSERT INTO `menus` (`id`, `menu_id`, `name`, `title`, `icon`, `link`, `created_at`, `updated_at`) VALUES
+(2, NULL, 'dashboard', 'داشبورد', 'fas fa-tachometer-alt', '/', '2021-12-01 05:11:50', '0000-00-00 00:00:00'),
+(3, NULL, 'profile', 'اطلاعات کاربری', 'fas fa-user-circle', '/profile', '2021-12-01 12:26:38', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `real_foreign`
+-- Table structure for table `real_foreigns`
 --
 
-CREATE TABLE `real_foreign` (
+CREATE TABLE `real_foreigns` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `name` varchar(100) COLLATE utf8_persian_ci NOT NULL,
-  `passport_number` bigint(50) NOT NULL,
-  `birthday` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `address` varchar(1000) COLLATE utf8_persian_ci NOT NULL,
-  `postal_code` bigint(20) NOT NULL,
-  `education` varchar(50) COLLATE utf8_persian_ci NOT NULL,
-  `img` varchar(1000) COLLATE utf8_persian_ci NOT NULL,
+  `name` varchar(100) COLLATE utf8_persian_ci DEFAULT NULL,
+  `passport_number` bigint(50) DEFAULT NULL,
+  `birthday` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
+  `address` varchar(1000) COLLATE utf8_persian_ci DEFAULT NULL,
+  `postal_code` bigint(20) DEFAULT NULL,
+  `education` varchar(50) COLLATE utf8_persian_ci DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci COMMENT='غیر ایرانی';
+
+--
+-- Dumping data for table `real_foreigns`
+--
+
+INSERT INTO `real_foreigns` (`id`, `user_id`, `name`, `passport_number`, `birthday`, `address`, `postal_code`, `education`, `created_at`, `updated_at`) VALUES
+(19, 60, NULL, NULL, NULL, NULL, NULL, NULL, '2021-12-02 08:32:24', '2021-12-02 08:32:24');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `real_ir`
+-- Table structure for table `real_irs`
 --
 
-CREATE TABLE `real_ir` (
+CREATE TABLE `real_irs` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `national_code` bigint(20) NOT NULL,
-  `birthday` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `address` varchar(1000) COLLATE utf8_persian_ci NOT NULL,
-  `postal_code` bigint(20) NOT NULL,
-  `education` varchar(100) COLLATE utf8_persian_ci NOT NULL,
-  `name` varchar(100) COLLATE utf8_persian_ci NOT NULL,
-  `img` varchar(500) COLLATE utf8_persian_ci NOT NULL,
+  `name` varchar(100) COLLATE utf8_persian_ci DEFAULT NULL,
+  `national_code` bigint(20) DEFAULT NULL,
+  `identity_id` varchar(255) COLLATE utf8_persian_ci DEFAULT NULL,
+  `birthday` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
+  `address` varchar(1000) COLLATE utf8_persian_ci DEFAULT NULL,
+  `postal_code` bigint(20) DEFAULT NULL,
+  `education` varchar(100) COLLATE utf8_persian_ci DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci COMMENT='شخصیت ایرانی';
 
 -- --------------------------------------------------------
 
@@ -177,14 +194,16 @@ CREATE TABLE `tokens` (
 
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
-  `character_type` enum('real_ir','real_foreign','commercial_law','legal','governmental') COLLATE utf8_persian_ci DEFAULT NULL,
-  `status` enum('active','inactive','blocked','waiting') COLLATE utf8_persian_ci DEFAULT 'inactive',
+  `character_type` enum('commercial_law','legals_non_com','governmental','real') COLLATE utf8_persian_ci DEFAULT NULL,
+  `nationality` enum('real_ir','real_foreign') COLLATE utf8_persian_ci NOT NULL,
+  `status` enum('active','inactive','blocked','waiting') COLLATE utf8_persian_ci DEFAULT 'waiting',
   `username` varchar(255) COLLATE utf8_persian_ci NOT NULL,
-  `phone` bigint(20) NOT NULL,
+  `phone` varchar(20) COLLATE utf8_persian_ci NOT NULL,
   `phone_status` varchar(20) COLLATE utf8_persian_ci DEFAULT NULL,
   `email` varchar(100) COLLATE utf8_persian_ci NOT NULL,
   `email_status` varchar(20) COLLATE utf8_persian_ci DEFAULT NULL,
   `pass` varchar(1000) COLLATE utf8_persian_ci NOT NULL,
+  `img` varchar(255) COLLATE utf8_persian_ci NOT NULL DEFAULT 'avatar.jpg',
   `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
@@ -193,10 +212,8 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `character_type`, `status`, `username`, `phone`, `phone_status`, `email`, `email_status`, `pass`, `created_at`, `updated_at`) VALUES
-(1, NULL, NULL, 'azimi', 9150567825, '6399', 'joorjin2@gmail.com', '6399', '$2y$10$pIapXCukLvQ9rzXhHGcss.W5eamHL2eUBqiSMsoQWEwapUeDZ4cB2', '2021-11-28 10:38:24', '2021-11-28 06:55:08'),
-(2, NULL, 'inactive', 'azimi1', 9150567825, NULL, 'joorjin2@gmail.com', '3513', '$2y$10$95UtGQhT5VABr0POpJAT9uE3cIE3UeisGQ4CI1ZkwX4.V5qev896W', '2021-11-28 08:37:01', '2021-11-28 08:37:01'),
-(3, NULL, 'inactive', 'azimis', 9150567825, NULL, 'joorjin2@gmail.com', '4478', '$2y$10$A3CtzDyYEr2O7UFsyu7YqOrVjNXK1XU9dBG2xzVXBkKUvdi3tokAu', '2021-11-28 08:37:48', '2021-11-28 08:37:48');
+INSERT INTO `users` (`id`, `character_type`, `nationality`, `status`, `username`, `phone`, `phone_status`, `email`, `email_status`, `pass`, `img`, `created_at`, `updated_at`) VALUES
+(60, 'commercial_law', 'real_foreign', 'waiting', 'azimi', '09150567820', '52423', 'joorjinhost@gmail.com', NULL, '$2y$10$m5LoWfui28fkaX3.5Lh0dexrcmsAAECaXwVRfeGiasYXJgi87REI2', 'avatar.jpg', '2021-12-02 08:32:24', '2021-12-02 08:32:24');
 
 --
 -- Indexes for dumped tables
@@ -210,15 +227,21 @@ ALTER TABLE `failed_jobs`
   ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
 
 --
--- Indexes for table `legals_commercial`
+-- Indexes for table `govs`
 --
-ALTER TABLE `legals_commercial`
+ALTER TABLE `govs`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `legals_non_com`
+-- Indexes for table `legals_commercials`
 --
-ALTER TABLE `legals_non_com`
+ALTER TABLE `legals_commercials`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `legals_non_coms`
+--
+ALTER TABLE `legals_non_coms`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -228,15 +251,15 @@ ALTER TABLE `menus`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `real_foreign`
+-- Indexes for table `real_foreigns`
 --
-ALTER TABLE `real_foreign`
+ALTER TABLE `real_foreigns`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `real_ir`
+-- Indexes for table `real_irs`
 --
-ALTER TABLE `real_ir`
+ALTER TABLE `real_irs`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -262,46 +285,52 @@ ALTER TABLE `failed_jobs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `legals_commercial`
+-- AUTO_INCREMENT for table `govs`
 --
-ALTER TABLE `legals_commercial`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+ALTER TABLE `govs`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT for table `legals_non_com`
+-- AUTO_INCREMENT for table `legals_commercials`
 --
-ALTER TABLE `legals_non_com`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `legals_commercials`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
+-- AUTO_INCREMENT for table `legals_non_coms`
+--
+ALTER TABLE `legals_non_coms`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `menus`
 --
 ALTER TABLE `menus`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `real_foreign`
+-- AUTO_INCREMENT for table `real_foreigns`
 --
-ALTER TABLE `real_foreign`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `real_foreigns`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
--- AUTO_INCREMENT for table `real_ir`
+-- AUTO_INCREMENT for table `real_irs`
 --
-ALTER TABLE `real_ir`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `real_irs`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `tokens`
 --
 ALTER TABLE `tokens`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
