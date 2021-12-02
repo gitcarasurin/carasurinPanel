@@ -62,4 +62,11 @@
   </div>
   <!-- ./col -->
 </div>
+
+@isset($_GET['oldin'])
+    <script>
+        alert("قبلا حسابتان تایید شده");
+        window.location.href="/";
+    </script>
+@endisset
 @endsection

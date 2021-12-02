@@ -101,10 +101,10 @@ class UsersController extends Controller
             $validated = $request->validate([
                 'phone' => 'required|max:255',
                 'username' => 'required|unique:users,username|regex:/^\S*$/u',
-                'email'=> 'required|unique:users,username|email:rfc,dns',
+                'email'=> 'required|unique:users,email|email:rfc,dns',
                 'tab'=> 'required',
                 'pass' => 'required|min:8|required_with:repass|same:repass',
-                'repass'=>'required'
+                'repass'=>'required|required_with:pass'
             ]);
 
 
@@ -118,21 +118,21 @@ class UsersController extends Controller
                 ]);
             }
 
-            if ($tab != "real" ) {
+            if ($tab == "commercial_law" || $tab == "legals_non_com" || $tab == "governmental" ) {
                 $validated = $request->validate([
-                    'company_type'=> 'required | in:real_ir,real_foreign',
+                    'company_type'=> 'required',
                 ]);
             }
 
             // dd($tab);
             $rand_code = rand(10000,99999);
 
-            // dd($request->phone);
 
             if ($tab =='real') {
                 if ($request->representative_nationality == "real_foreign") {
                     $user = new User;
-                    $user->character_type = $tab;
+                    $user->character_type = "real";
+                    $user->nationality = $request->representative_nationality;
                     $user->phone = $request->phone;
                     $user->username = $request->username;
                     $user->email = $request->email;
@@ -146,31 +146,9 @@ class UsersController extends Controller
                     $realIr->name = $request->name;
                     $realIr->save();
                 }else {
-                    $user = new User;
-                    $user->character_type = "real";
-                    $user->nationality = $request->representative_nationality;
-                    $user->phone = $request->phone;
-                    $user->username = $request->username;
-                    $user->email = $request->email;
-                    $user->phone_status  = $rand_code;
-                    $user->pass = bcrypt($request->pass);
-                    $user->save();
-
-                    $realIr = new RealIr;
-                    $realIr->user_id = $user->id;
-                    $realIr->name = $request->name;
-                    $realIr->save();
-                }
-
-            }
-            elseif ($tab == 'commercial_law' || $tab =='legals_non_com' || $tab == 'governmental'){
-                $validated = $request->validate([
-                    'name_legal' => 'required | max:255',
-                ]);
-
-
                 $user = new User;
-                $user->character_type = $tab;
+                $user->character_type = "real";
+                $user->nationality = $request->representative_nationality;
                 $user->phone = $request->phone;
                 $user->username = $request->username;
                 $user->email = $request->email;
@@ -178,11 +156,47 @@ class UsersController extends Controller
                 $user->pass = bcrypt($request->pass);
                 $user->save();
 
+                $realIr = new RealIr;
+                $realIr->user_id = $user->id;
+                $realIr->name = $request->name;
+                $realIr->save();
+                }
+
+            }
+            elseif ($tab == 'commercial_law' || $tab =='legals_non_com' || $tab == 'governmental'){
+
+                $validated = $request->validate([
+                    'name_legal' => 'required | max:255',
+                ]);
+
+
+                $user = new User;
+                if ($tab == "commercial_law") {
+                    $user->character_type = "commercial_law";
+                }
+                if ($tab == "legals_non_com") {
+                    $user->character_type = "legals_non_com";
+                }
+                if ($tab == "governmental") {
+                    $user->character_type = "governmental";
+                }
+                $user->phone = $request->phone;
+                $user->username = $request->username;
+                $user->email = $request->email;
+                $user->phone_status  = $rand_code;
+                $user->pass = bcrypt($request->pass);
+                $user->nationality = $request->representative_nationality;
+                $user->character_type = $tab;
+                $user->save();
+
+                //  حقوقی ها
                 if ($tab == 'commercial_law') {
                     $organization = new LegalsCommercial;
+                    $organization->company_type = $request->company_type;
                 }
                 if ($tab == 'legals_non_com') {
                     $organization = new LegalsNonCom;
+                    $organization->company_type = $request->company_type;
                 }
                 if ($tab == 'governmental') {
                     $organization = new Gov;
@@ -190,6 +204,8 @@ class UsersController extends Controller
                 $organization->user_id = $user->id;
                 $organization->name = $request->name_legal;
                 $organization->save();
+                // آخر ذخیره حقوقی ها
+
 
                 if ($request->representative_nationality == "real_ir") {
                     $realIr = new RealIr;
@@ -209,6 +225,9 @@ class UsersController extends Controller
                 redirect('signIn');
             }
 
+
+                dd("stop");
+
             $request->session()->flush();
 
             session()->put('email',$request->email);
@@ -216,7 +235,8 @@ class UsersController extends Controller
             // Mail::send(new ValidationMail($rand_code));
 
             // send sms
-            $user->notify(new Sms($rand_code,$request->phone));
+            // $user = new User;
+            // $user->notify(new Sms($rand_code,$request->phone));
 
             return Redirect('checkCode');
 
@@ -230,8 +250,21 @@ class UsersController extends Controller
     {
         if (session()->has('email')) {
 
+
+            $user = User::where('email',session('email'))->get();
+
+            if($user[0]['phone_status'] == "confirmed"){
+
+                return redirect('/?oldin');
+            }
+
             if ($request->isMethod("post")) {
                 $user = User::where('email',session('email'))->get();
+
+                if($user[0]['phone_status'] == "confirmed"){
+
+                    return redirect('/?oldin');
+                }
                 if($user[0]['phone_status'] == $request->code){
                     User::where('email',session('email'))->update(['phone_status' => "confirmed"]);
 
@@ -270,7 +303,7 @@ class UsersController extends Controller
             }
 
         }else{
-            redirect('login');
+            return redirect('login');
         }
     }
 

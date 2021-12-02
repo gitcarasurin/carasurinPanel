@@ -114,14 +114,14 @@
                         <label for="company_type">نوع شرکت</label>
                         <select name="company_type" id="company_type" class="form-select2 col-md-12" aria-label="Default select example">
                             <option selected value="-"> انتخاب کنید </option>
-                            <option value="real_ir"> سهامی خاص </option>
-                            <option value="real_foreign"> سهامی عام </option>
-                            <option value="real_foreign"> با مسئولیت محدود </option>
-                            <option value="real_foreign"> تضامنی </option>
-                            <option value="real_foreign"> مختلط سهامی </option>
-                            <option value="real_foreign"> مختلط غیر سهامی </option>
-                            <option value="real_foreign">  نسبی </option>
-                            <option value="real_foreign">  تعاونی </option>
+                            <option value="private_equity"> سهامی خاص </option>
+                            <option value="public_stock"> سهامی عام </option>
+                            <option value="limited_responsibility"> با مسئولیت محدود </option>
+                            <option value="solidarity"> تضامنی </option>
+                            <option value="mixed_stock"> مختلط سهامی </option>
+                            <option value="Non_joint_stock_mixed"> مختلط غیر سهامی </option>
+                            <option value="relative">  نسبی </option>
+                            <option value="cooperative">  تعاونی </option>
                         </select>
                     </div>
                     <div class="card-body">
@@ -141,7 +141,7 @@
                         </div>
                         <div class="form-group">
                         <label for="exampleInputPassword1">کلمه عبور</label>
-                        <input type="password" class="form-control" id="exampleInputPassword1" name="pass" placeholder="پسورد را وارد کنید">
+                        <input type="password" class="form-control pass" id="exampleInputPassword1" name="pass" placeholder="پسورد را وارد کنید">
                         </div>
                         <div class="form-group">
                             <label for="exampleInputPassword1"> تکرار کلمه عبور</label>
@@ -238,12 +238,12 @@
                         <label for="representative_nationality">نوع شخصیت</label>
                         <select name="representative_nationality" id="representative_nationality" class="form-select2 col-md-12" aria-label="Default select example">
                             <option selected value="-"> انتخاب کنید </option>
-                            <option value="real_ir"> موسسه </option>
-                            <option value="real_foreign"> انتشارات </option>
-                            <option value="real_foreign"> کانون </option>
-                            <option value="real_foreign"> انجمن </option>
-                            <option value="real_foreign"> اتحادیه اتاق بازرگانی </option>
-                            <option value="real_foreign"> سازمان های مردم نهاد </option>
+                            <option value="institute"> موسسه </option>
+                            <option value="publishers"> انتشارات </option>
+                            <option value="canon"> کانون </option>
+                            <option value="union"> انجمن </option>
+                            <option value="chamber_commerce"> اتحادیه اتاق بازرگانی </option>
+                            <option value="NGO"> سازمان های مردم نهاد </option>
                         </select>
                     </div>
                     <div class="card-body">
