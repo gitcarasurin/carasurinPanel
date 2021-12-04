@@ -100,7 +100,7 @@
                     <i class="fa fa-ban"></i>
                   </div>
                   <a href="/resendCode" class="small-box-footer">
-                    برای تلفن  ایمیل کلیک کنید. <i class="fa fa-arrow-circle-right"></i>
+                    برای تایید تلفن  کلیک کنید. <i class="fa fa-arrow-circle-right"></i>
                   </a>
                 </div>
             @endisset

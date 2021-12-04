@@ -90,8 +90,6 @@ class UsersController extends Controller
     {
 
 
-
-
         if ($request->isMethod('post')) {
 
 
@@ -112,17 +110,13 @@ class UsersController extends Controller
 
 
             $tab = $request->tab;
-            if ($tab == "commercial_law" || $tab == "real" ) {
+            // dd($tab);
+            if ($tab == "legals_commercial" || $tab == "real" ) {
                 $validated = $request->validate([
                     'representative_nationality'=> 'required | in:real_ir,real_foreign',
                 ]);
             }
 
-            if ($tab == "commercial_law" || $tab == "legals_non_com" || $tab == "governmental" ) {
-                $validated = $request->validate([
-                    'company_type'=> 'required',
-                ]);
-            }
 
             // dd($tab);
             $rand_code = rand(10000,99999);
@@ -131,6 +125,7 @@ class UsersController extends Controller
             if ($tab =='real') {
                 if ($request->representative_nationality == "real_foreign") {
                     $user = new User;
+
                     $user->character_type = "real";
                     $user->nationality = $request->representative_nationality;
                     $user->phone = $request->phone;
@@ -163,50 +158,60 @@ class UsersController extends Controller
                 }
 
             }
-            elseif ($tab == 'commercial_law' || $tab =='legals_non_com' || $tab == 'governmental'){
-
+            elseif ($tab == 'legals_commercial' || $tab =='legals_non_com' || $tab == 'governmental'){
+                // dd($request->representative_nationality);
+                $validated = $request->validate([
+                    'company_type'=> 'required',
+                ]);
                 $validated = $request->validate([
                     'name_legal' => 'required | max:255',
                 ]);
 
 
                 $user = new User;
-                if ($tab == "commercial_law") {
-                    $user->character_type = "commercial_law";
+                if ($tab == "legals_commercial") {
+                    $user->character_type = "legals_commercial";
+                    $user->nationality = $request->representative_nationality;
                 }
                 if ($tab == "legals_non_com") {
                     $user->character_type = "legals_non_com";
+                    $user->nationality = "real_ir";
                 }
                 if ($tab == "governmental") {
                     $user->character_type = "governmental";
+                    $user->nationality = "real_ir";
                 }
                 $user->phone = $request->phone;
                 $user->username = $request->username;
                 $user->email = $request->email;
                 $user->phone_status  = $rand_code;
                 $user->pass = bcrypt($request->pass);
-                $user->nationality = $request->representative_nationality;
                 $user->character_type = $tab;
                 $user->save();
 
                 //  حقوقی ها
-                if ($tab == 'commercial_law') {
+                if ($tab == 'legals_commercial') {
                     $organization = new LegalsCommercial;
-                    $organization->company_type = $request->company_type;
                 }
                 if ($tab == 'legals_non_com') {
                     $organization = new LegalsNonCom;
-                    $organization->company_type = $request->company_type;
                 }
                 if ($tab == 'governmental') {
                     $organization = new Gov;
                 }
+                $organization->company_type = $request->company_type;
                 $organization->user_id = $user->id;
                 $organization->name = $request->name_legal;
                 $organization->save();
                 // آخر ذخیره حقوقی ها
 
 
+                if ($request->representative_nationality == Null) {
+                    $realIr = new RealIr;
+                    $realIr->user_id = $user->id;
+                    $realIr->name = $request->name;
+                    $realIr->save();
+                }
                 if ($request->representative_nationality == "real_ir") {
                     $realIr = new RealIr;
                     $realIr->user_id = $user->id;
@@ -226,9 +231,9 @@ class UsersController extends Controller
             }
 
 
-                dd("stop");
+                // dd("stop for test");
 
-            $request->session()->flush();
+            // $request->session()->flush();
 
             session()->put('email',$request->email);
 
@@ -236,7 +241,7 @@ class UsersController extends Controller
 
             // send sms
             // $user = new User;
-            // $user->notify(new Sms($rand_code,$request->phone));
+            $user->notify(new Sms($rand_code,$request->phone));
 
             return Redirect('checkCode');
 

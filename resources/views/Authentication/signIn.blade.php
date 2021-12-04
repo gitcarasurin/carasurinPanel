@@ -61,7 +61,7 @@
                 <select class="form-select" aria-label="Default select example">
                     <option selected value="-">نوع شخصیت را انتخاب کنید</option>
                     <option value="real">حقیقی</option>
-                    <option value="commercial_law">حقوقی تجاری</option>
+                    <option value="legals_commercial ">حقوقی تجاری</option>
                     <option value="legals_non_com">حقوقی غیر تجاری</option>
                     <option value="governmental">دولتی و  سازمان ها </option>
                 </select>
@@ -86,14 +86,14 @@
                 @endif
 
 
-                <div class="commercial_law all-form">
+                <div class="legals_commercial  all-form">
                     <form role="form" method="POST">
                         @csrf
                         <input class="tabclass" type="hidden" name="tab" value="">
                         <div class="card-body">
                             <div class="form-group company-name">
-                                <label for="exampleInputEmail1"> نام <span class="chtype" >شخصیت</span>  </label>
-                                <input type="text" class="form-control chtypeinp" id="exampleInputEmail1" name="name_legal" placeholder="  نام سازمان">
+                                <label for="exampleInputEmail1"> نام <span class="chtype" >شرکت</span>  </label>
+                                <input type="text" class="form-control chtypeinp" id="exampleInputEmail1" name="name_legal" placeholder="  نام شرکت">
                             </div>
                             <hr>
                     <!-- <h3>مشخصات نماینده <span class="chtype" >سازمان</span></h3> -->
@@ -176,8 +176,8 @@
                         <label for="company_type">نوع سازمان</label>
                         <select name="company_type" id="company_type" class="form-select2 col-md-12" aria-label="Default select example">
                             <option selected value="-"> انتخاب کنید </option>
-                            <option value="real_ir"> دولتی </option>
-                            <option value="real_foreign"> نهاد عمومی غیر دولتی </option>
+                            <option value="gov"> دولتی </option>
+                            <option value="public"> نهاد عمومی غیر دولتی </option>
                         </select>
                     </div>
                     <div class="card-body">
@@ -222,8 +222,8 @@
                         <input class="tabclass" type="hidden" name="tab" value="">
                         <div class="card-body">
                             <div class="form-group company-name">
-                                <label for="exampleInputEmail1"> نام <span class="chtype" >شرکت</span>  </label>
-                                <input type="text" class="form-control chtypeinp" id="exampleInputEmail1" name="name_legal" placeholder="  نام سازمان">
+                                <label for="exampleInputEmail1"> نام <span class="chtype" >شخصیت</span>  </label>
+                                <input type="text" class="form-control chtypeinp" id="exampleInputEmail1" name="name_legal" placeholder="  نام شخصیت">
                             </div>
                             <hr>
                     <!-- <h3>مشخصات نماینده <span class="chtype" >سازمان</span></h3> -->
@@ -236,7 +236,7 @@
 
                     <div class="form-group company-name">
                         <label for="representative_nationality">نوع شخصیت</label>
-                        <select name="representative_nationality" id="representative_nationality" class="form-select2 col-md-12" aria-label="Default select example">
+                        <select name="company_type" id="representative_nationality" class="form-select2 col-md-12" aria-label="Default select example">
                             <option selected value="-"> انتخاب کنید </option>
                             <option value="institute"> موسسه </option>
                             <option value="publishers"> انتشارات </option>
@@ -295,7 +295,7 @@
                     </div>
                     <div class="form-group">
                         <label for="representative_nationality" class="legallabel"> تابعیت </label>
-                        <select name="representative_nationality" id="representative_nationality" class="form-select" aria-label="Default select example">
+                        <select name="representative_nationality" id="representative_nationality" class="form-select0" aria-label="Default select example">
                             <option selected value="-">انتخاب کنید</option>
                             <option value="real_ir"> ایرانی</option>
                             <option value="real_foreign">غیر ایررانی</option>
@@ -367,8 +367,8 @@
                     $(".all-real").show();
                 }
 
-                if ($(".form-select").val() == 'commercial_law') {
-                    $(".commercial_law").show();
+                if ($(".form-select").val() == 'legals_commercial ') {
+                    $(".legals_commercial ").show();
                 }
                 if ($(".form-select").val() == 'legals_non_com') {
                     $(".legals_non_com").show();
@@ -402,14 +402,14 @@
                 }
             });
 
-            $(".commercial_law .repass").keyup(function(){
+            $(".legals_commercial  .repass").keyup(function(){
 
-                let mainPass = $(".commercial_law .pass").val();
-                let repass = $(".commercial_law .repass").val();
+                let mainPass = $(".legals_commercial  .pass").val();
+                let repass = $(".legals_commercial  .repass").val();
                 if (mainPass === repass) {
-                    $(".commercial_law .repass").css("border", "2px solid #28a745");
+                    $(".legals_commercial  .repass").css("border", "2px solid #28a745");
                 }else{
-                    $(".commercial_law .repass").css("border", "2px solid #f00");
+                    $(".legals_commercial  .repass").css("border", "2px solid #f00");
                 }
             });
 

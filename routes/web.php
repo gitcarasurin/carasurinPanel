@@ -29,6 +29,5 @@ Route::middleware([UserAuth::class,menuControlMidel::class])
 ->group(function () {
     Route::any('/', [dashboardContriller::class ,'dashboard']);
     Route::any('profile',[dashboardContriller::class , 'profile']);
-
-
+    Route::any('personal_information', [dashboardContriller::class , 'personal_information']);
 });

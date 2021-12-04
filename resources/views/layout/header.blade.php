@@ -45,6 +45,20 @@
           font-size: 23px;
           margin-top: -3px
       }
+
+      .under-menus{
+        width: 85%;
+        right: 15%;
+        position: relative;
+        color: #000 !important;
+    }
+    .under-menus p ,.under-menus .nav-icon{
+        color: #fff !important;
+        color: #6f450b;
+    }
+    .under-menus a.active{
+        background: #ffb931 !important;
+    }
   </style>
 
   @yield('head')
@@ -161,7 +175,7 @@
           <div class="dropdown-divider"></div>
 
           @if(!isset(session('userInfo')[0]['email_status']))
-          <a href="profile" class="dropdown-item text-danger">
+          <a href="personal_information" class="dropdown-item text-danger">
             <i class="fa fa-file ml-2"></i> اطلاعاتتان را تکمیل کنید
             <span class="float-left text-muted text-sm">مدیریت سایت</span>
           </a>
@@ -201,7 +215,7 @@
           <div class="info">
             <a href="/profile" style="color: #fff;" class="d-block">{{ session('userInfo')[0]['name'] }}<i class="fas fa-user-circle"></i>  </a>
             <div style="width: 177px">
-                @if (session('userInfo')[0]['character_type'] != 'real_ir' && session('userInfo')[0]['character_type'] != 'real_foreign')
+                @if (session('userInfo')[0]['character_type'] != 'real')
                     <code style="background: #fff;border-radius:5px; ">&nbsp; حساب حقوقی &nbsp;</code>
                 @endif
 
@@ -249,7 +263,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">داشبورد</h1>
+            <h1 class="m-0 text-dark">@yield('title')</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             {{--  <ol class="breadcrumb float-sm-left">

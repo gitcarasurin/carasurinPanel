@@ -42,7 +42,8 @@ class UserAuth
             }
 
         }
-        if($user[0]['character_type'] == "commercial_law"){
+
+        if($user[0]['character_type'] == "legals_commercial"){
             $userInfo = $userInfo->join('legals_commercials','users.id','legals_commercials.user_id');
         }
         if($user[0]['character_type'] == "legals_non_com"){
@@ -52,6 +53,8 @@ class UserAuth
             $userInfo = $userInfo->join('govs','users.id','govs.user_id');
         }
         $userInfo= $userInfo->get();
+
+        // dd($userInfo);
 
         session()->put('userInfo',$userInfo);
 
