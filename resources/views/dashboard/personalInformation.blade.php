@@ -11,7 +11,7 @@
 @section('title')
     تکمیل اطلاعات فردی
     @if (session('userInfo')[0]['character_type'] != 'real')
-       <mark class="h6">(نماینده حقوقی)</mark>
+       <mark class="h6">(مدیر شرکت)</mark>
     @endif
 @endsection
 
