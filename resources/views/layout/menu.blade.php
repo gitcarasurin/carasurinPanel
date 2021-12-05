@@ -17,7 +17,7 @@
 
         @if ($_SERVER['REQUEST_URI'] == $item->link)
 
-            <a href="{{ $item->link }}" class="nav-link ">
+            <a href="{{ $item->link }}" class="nav-link active">
         @else
             <a href="{{ $item->link }}" class="nav-link ">
         @endif

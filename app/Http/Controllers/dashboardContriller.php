@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ValidationMail;
 use App\Models\RealForeign;
 use App\Models\RealIr;
 use App\Models\User;
 use Hekmatinasser\Verta\Facades\Verta;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class dashboardContriller extends Controller
 {
@@ -81,9 +83,26 @@ class dashboardContriller extends Controller
                 'postal_code'=>$request->postal_code,
                 'education'=>$request->education
             ]);
-            return redirect('personal_information?okComplete');
+
+
+            $rand_code = rand(10000,99999);
+            $user= User::where('id',session('userInfo')[0]['user_id'])->update([
+                'email_status'  => $rand_code
+            ]);
+
+            Mail::send(new ValidationMail($rand_code));
+
+            return redirect('mailCheckCode');
 
         }
         return view('dashboard.personalInformation');
+    }
+    public function mailCheckCode(Request $request)
+    {
+        if ($request->isMethod('post')) {
+            dd($request->code);
+        }else {
+            return view('dashboard.checkCode');
+        }
     }
 }

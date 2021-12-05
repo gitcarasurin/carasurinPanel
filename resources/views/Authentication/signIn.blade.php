@@ -242,7 +242,7 @@
                             <option value="publishers"> انتشارات </option>
                             <option value="canon"> کانون </option>
                             <option value="union"> انجمن </option>
-                            <option value="chamber_commerce"> اتحادیه اتاق بازرگانی </option>
+                            <option value="chamber_commerce"> اتحادیه / اتاق بازرگانی </option>
                             <option value="NGO"> سازمان های مردم نهاد </option>
                         </select>
                     </div>
@@ -298,7 +298,7 @@
                         <select name="representative_nationality" id="representative_nationality" class="form-select0" aria-label="Default select example">
                             <option selected value="-">انتخاب کنید</option>
                             <option value="real_ir"> ایرانی</option>
-                            <option value="real_foreign">غیر ایررانی</option>
+                            <option value="real_foreign">غیر ایرانی</option>
                         </select>
                     </div>
                     <div class="card-body">
