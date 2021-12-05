@@ -37,6 +37,9 @@
             margin: 0 auto;
             margin-top: 100px;
         }
+
+
+
     </style>
 </head>
 <body>
@@ -79,7 +82,7 @@
                   <div class="card-footer" style="text-align: center;">
                     <button type="submit" class="btn  btn-lg" style="background: #84be38; color: #2c4012;width: 40%; ">برسی</button>
                   </div>
-                <a href="resendCode">ارسال مجدد</a>
+                  <div class="resendTime">03:00</div>
                 </form>
 
               </div>
@@ -105,6 +108,25 @@
     window.location.href="checkCode";
 </script>
 @endisset
+
+<script>
+    $(document).ready(function () {
+        let s = 59;
+        let m = 2;
+        const interval = setInterval(function(){
+            $(".resendTime").html(m+":"+s+"تا ارسال بعدی");
+            s--;
+            if (m == -1) {
+                $(".resendTime").html("<a href='resendCode'>ارسال مجدد</a>");
+                clearInterval(interval);
+            }
+            if (s == 0) {
+                s = 59;
+                m--;
+            }
+        }, 1000);
+    });
+</script>
 
 </body>
 </html>

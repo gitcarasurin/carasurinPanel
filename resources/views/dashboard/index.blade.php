@@ -69,4 +69,12 @@
         window.location.href="/";
     </script>
 @endisset
+@isset($_GET['okemail'])
+    <script>
+        alert("ایمل شما با موفقیت تایید شد");
+        window.location.href="/";
+    </script>
+@endisset
+
+
 @endsection

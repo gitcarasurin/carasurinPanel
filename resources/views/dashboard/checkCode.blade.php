@@ -73,6 +73,11 @@
                       <label for="exampleInputEmail1">کد تایید ارسال شده به ایمیلتان را وارد کنید. </label>
                       <br>
                       <mark> پوشه اسپم هارا هم چک کنید </mark>
+                      <div class="wrapper">
+                        <div class="pie spinner"></div>
+                        <div class="pie filler"></div>
+                        <div class="mask"></div>
+                      </div>
                       <br><br>
                       <input type="number" class="form-control" id="exampleInputEmail1" name="code" placeholder=" کد تایید را وارد کنید.">
                     </div>
@@ -82,7 +87,7 @@
                   <div class="card-footer" style="text-align: center;">
                     <button type="submit" class="btn  btn-lg" style="background: #84be38; color: #2c4012;width: 40%; ">برسی</button>
                   </div>
-                <a href="resendCode">ارسال مجدد</a>
+                <div class="resendTime">03:00</div>
                 </form>
 
               </div>
@@ -97,17 +102,37 @@
     @isset($_GET['codeerr'])
     <script>
         alert("کد اشتباه است.");
-        window.location.href="checkCode";
+        window.location.href="mailCheckCode";
 
     </script>
 @endisset
 
-@isset($_GET['resend'])
+@isset($_GET['resendd'])
 <script>
     alert(" کد  ارسال شد ");
-    window.location.href="checkCode";
+    window.location.href="mailCheckCode";
 </script>
 @endisset
+
+
+<script>
+    $(document).ready(function () {
+        let s = 59;
+        let m = 2;
+        const interval = setInterval(function(){
+            $(".resendTime").html(m+":"+s+"تا ارسال بعدی");
+            s--;
+            if (m == -1) {
+                $(".resendTime").html("<a href='mailCheckCode?resend'>ارسال مجدد</a>");
+                clearInterval(interval);
+            }
+            if (s == 0) {
+                s = 59;
+                m--;
+            }
+        }, 1000);
+    });
+</script>
 
 </body>
 </html>

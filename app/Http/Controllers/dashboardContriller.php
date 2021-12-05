@@ -9,6 +9,7 @@ use App\Models\User;
 use Hekmatinasser\Verta\Facades\Verta;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Redirect;
 
 class dashboardContriller extends Controller
 {
@@ -99,8 +100,24 @@ class dashboardContriller extends Controller
     }
     public function mailCheckCode(Request $request)
     {
+
+        if(isset($_GET['resend'])){
+            Mail::send(new ValidationMail(session('userInfo')[0]['email_status']));
+            return redirect('mailCheckCode?resendd');
+        }
+
         if ($request->isMethod('post')) {
-            dd($request->code); 
+            if(session('userInfo')[0]['email_status'] == "confirmed"){
+
+                return redirect('/?oldin');
+            }
+            if(session('userInfo')[0]['email_status'] == $request->code){
+                User::where('email',session('userInfo')[0]['email'])->update(['email_status' => "confirmed"]);
+
+                return redirect('/?okemail');
+            }else {
+                return Redirect('mailCheckCode?codeerr');
+            }
         }else {
             return view('dashboard.checkCode');
         }
