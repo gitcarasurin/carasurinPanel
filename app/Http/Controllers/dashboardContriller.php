@@ -100,7 +100,7 @@ class dashboardContriller extends Controller
     public function mailCheckCode(Request $request)
     {
         if ($request->isMethod('post')) {
-            dd($request->code);
+            dd($request->code); 
         }else {
             return view('dashboard.checkCode');
         }
