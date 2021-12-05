@@ -3,17 +3,12 @@
 use App\Http\Controllers\dashboardContriller;
 use App\Http\Controllers\TerminalController;
 use App\Http\Controllers\UsersController;
+use App\Http\Middleware\AccessLevel;
 use App\Http\Middleware\Authenticate;
 use App\Http\Middleware\menuControlMidel;
 use App\Http\Middleware\UserAuth;
 use Illuminate\Contracts\Auth\UserProvider;
 use Illuminate\Support\Facades\Route;
-
-
-
-
-
-
 
 
 // Authentication
@@ -33,7 +28,7 @@ Route::middleware([UserAuth::class,menuControlMidel::class])
     Route::any('profile',[dashboardContriller::class , 'profile']);
     Route::any('personal_information', [dashboardContriller::class , 'personal_information']);
     // terminal
-    Route::any('terminal', [TerminalController::class,'setup']);
+    Route::any('terminal', [TerminalController::class,'setup'])->middleware(AccessLevel::class);
 
     Route::any('mailCheckCode', [dashboardContriller::class,'mailCheckCode']);
 
