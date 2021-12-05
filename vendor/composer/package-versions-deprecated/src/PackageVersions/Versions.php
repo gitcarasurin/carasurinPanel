@@ -59,6 +59,8 @@ final class Versions
   'league/config' => 'v1.1.1@a9d39eeeb6cc49d10a6e6c36f22c4c1f4a767f3e',
   'league/flysystem' => '1.1.6@627be7fcde84c71aa0f15097fcf48fd5f2be5287',
   'league/mime-type-detection' => '1.9.0@aa70e813a6ad3d1558fc927863d47309b4c23e69',
+  'melipayamak/laravel' => '1.0.0@8666e3afb2248c5de73b35e3c709a235a7a15393',
+  'melipayamak/php' => '1.0.0@b8f7db07eef1fa57f8a23d379949e3f04cb923b8',
   'monolog/monolog' => '2.3.5@fd4380d6fc37626e2f799f29d91195040137eba9',
   'nesbot/carbon' => '2.54.0@eed83939f1aed3eee517d03a33f5ec587ac529b5',
   'nette/schema' => 'v1.2.2@9a39cef03a5b34c7de64f551538cbba05c2be5df',
@@ -158,7 +160,7 @@ final class Versions
   'sebastian/version' => '3.0.2@c6c1022351a901512170118436c764e473f6de8c',
   'symfony/debug' => 'v4.4.31@43ede438d4cb52cd589ae5dc070e9323866ba8e0',
   'theseer/tokenizer' => '1.2.1@34a41e998c2183e22995f158c581e7b5e755ab9e',
-  'laravel/laravel' => 'dev-main@0742227075585de1edab83277cd07f64237c7270',
+  'laravel/laravel' => 'dev-main@50b3de301c77ff38cb897134ec173f209f889af0',
 );
 
     private function __construct()

@@ -146,6 +146,8 @@ class ComposerStaticInit8f62271f09674f4c62d14fed9449e84a
         'M' => 
         array (
             'Monolog\\' => 8,
+            'Melipayamak\\Laravel\\' => 20,
+            'Melipayamak\\' => 12,
         ),
         'L' => 
         array (
@@ -439,6 +441,14 @@ class ComposerStaticInit8f62271f09674f4c62d14fed9449e84a
         array (
             0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
         ),
+        'Melipayamak\\Laravel\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/melipayamak/laravel/src',
+        ),
+        'Melipayamak\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/melipayamak/php/src',
+        ),
         'League\\MimeTypeDetection\\' => 
         array (
             0 => __DIR__ . '/..' . '/league/mime-type-detection/src',
@@ -616,6 +626,7 @@ class ComposerStaticInit8f62271f09674f4c62d14fed9449e84a
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
+        'App\\Http\\Controllers\\TerminalController' => __DIR__ . '/../..' . '/app/Http/Controllers/TerminalController.php',
         'App\\Http\\Controllers\\UsersController' => __DIR__ . '/../..' . '/app/Http/Controllers/UsersController.php',
         'App\\Http\\Controllers\\dashboardContriller' => __DIR__ . '/../..' . '/app/Http/Controllers/dashboardContriller.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
@@ -630,10 +641,17 @@ class ComposerStaticInit8f62271f09674f4c62d14fed9449e84a
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
         'App\\Http\\Middleware\\menuControlMidel' => __DIR__ . '/../..' . '/app/Http/Middleware/menuControlMidel.php',
         'App\\Mail\\ValidationMail' => __DIR__ . '/../..' . '/app/Mail/ValidationMail.php',
+        'App\\Models\\Gov' => __DIR__ . '/../..' . '/app/Models/Gov.php',
         'App\\Models\\Legals' => __DIR__ . '/../..' . '/app/Models/Legals.php',
-        'App\\Models\\Menu' => __DIR__ . '/../..' . '/app/Models/Menu.php',
+        'App\\Models\\LegalsCommercial' => __DIR__ . '/../..' . '/app/Models/LegalsCommercial.php',
+        'App\\Models\\LegalsNonCom' => __DIR__ . '/../..' . '/app/Models/LegalsNonCom.php',
+        'App\\Models\\MainMenu' => __DIR__ . '/../..' . '/app/Models/MainMenu.php',
+        'App\\Models\\RealForeign' => __DIR__ . '/../..' . '/app/Models/RealForeign.php',
+        'App\\Models\\RealIr' => __DIR__ . '/../..' . '/app/Models/RealIr.php',
         'App\\Models\\Token' => __DIR__ . '/../..' . '/app/Models/Token.php',
+        'App\\Models\\UnderMenu' => __DIR__ . '/../..' . '/app/Models/UnderMenu.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
+        'App\\Notifications\\Sms' => __DIR__ . '/../..' . '/app/Notifications/Sms.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',
         'App\\Providers\\BroadcastServiceProvider' => __DIR__ . '/../..' . '/app/Providers/BroadcastServiceProvider.php',
@@ -3340,6 +3358,22 @@ class ComposerStaticInit8f62271f09674f4c62d14fed9449e84a
         'League\\MimeTypeDetection\\GeneratedExtensionToMimeTypeMap' => __DIR__ . '/..' . '/league/mime-type-detection/src/GeneratedExtensionToMimeTypeMap.php',
         'League\\MimeTypeDetection\\MimeTypeDetector' => __DIR__ . '/..' . '/league/mime-type-detection/src/MimeTypeDetector.php',
         'League\\MimeTypeDetection\\OverridingExtensionToMimeTypeMap' => __DIR__ . '/..' . '/league/mime-type-detection/src/OverridingExtensionToMimeTypeMap.php',
+        'Melipayamak\\BaseSms' => __DIR__ . '/..' . '/melipayamak/php/src/BaseSms.php',
+        'Melipayamak\\Branch' => __DIR__ . '/..' . '/melipayamak/php/src/Branch.php',
+        'Melipayamak\\BranchAsync' => __DIR__ . '/..' . '/melipayamak/php/src/BranchAsync.php',
+        'Melipayamak\\Contacts' => __DIR__ . '/..' . '/melipayamak/php/src/Contacts.php',
+        'Melipayamak\\ContactsAsync' => __DIR__ . '/..' . '/melipayamak/php/src/ContactsAsync.php',
+        'Melipayamak\\Laravel\\Facade' => __DIR__ . '/..' . '/melipayamak/laravel/src/Facade.php',
+        'Melipayamak\\Laravel\\ServiceProvider' => __DIR__ . '/..' . '/melipayamak/laravel/src/ServiceProvider.php',
+        'Melipayamak\\MelipayamakApi' => __DIR__ . '/..' . '/melipayamak/php/src/MelipayamakApi.php',
+        'Melipayamak\\SmsRest' => __DIR__ . '/..' . '/melipayamak/php/src/SmsRest.php',
+        'Melipayamak\\SmsRestAsync' => __DIR__ . '/..' . '/melipayamak/php/src/SmsRestAsync.php',
+        'Melipayamak\\SmsSoap' => __DIR__ . '/..' . '/melipayamak/php/src/SmsSoap.php',
+        'Melipayamak\\SmsSoapAsync' => __DIR__ . '/..' . '/melipayamak/php/src/SmsSoapAsync.php',
+        'Melipayamak\\Ticket' => __DIR__ . '/..' . '/melipayamak/php/src/Ticket.php',
+        'Melipayamak\\TicketAsync' => __DIR__ . '/..' . '/melipayamak/php/src/TicketAsync.php',
+        'Melipayamak\\Users' => __DIR__ . '/..' . '/melipayamak/php/src/Users.php',
+        'Melipayamak\\UsersAsync' => __DIR__ . '/..' . '/melipayamak/php/src/UsersAsync.php',
         'Mockery' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery.php',
         'Mockery\\Adapter\\Phpunit\\MockeryPHPUnitIntegration' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery/Adapter/Phpunit/MockeryPHPUnitIntegration.php',
         'Mockery\\Adapter\\Phpunit\\MockeryPHPUnitIntegrationAssertPostConditions' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery/Adapter/Phpunit/MockeryPHPUnitIntegrationAssertPostConditions.php',
